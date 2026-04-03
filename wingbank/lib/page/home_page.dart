@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
       key: _scaffoldKey,
       appBar: _buildAppBar,
       drawer: _buildDrawer(),
-      // body: Column(children: [_buildHeader(), _buildService()]),
+      body: _buildBody,
     );
   }
 
@@ -90,13 +90,44 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget get _buildBody {
+    return Container(
+      color: primaryGreen,
+      child: ListView(
+        children: [
+          Flexible(
+            flex: 4,
+            child: Container(
+              height: 40,
+              decoration: BoxDecoration(
+                border: Border.all(color: accentBlue),
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(50),
+                  topRight: Radius.circular(50),
+                ),
+              ),
+            ),
+          ),
+          Flexible(flex: 1, child: _buildService),
+          Flexible(flex: 1, child: Container(height: 150, color: Colors.grey)),
+          Flexible(
+            flex: 1,
+            child: Container(height: 150, color: Colors.lightBlue),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildDrawer() {
     return Drawer();
   }
 
-  Widget _buildService() {
-    return SizedBox(
-      height: 400,
+  Widget get _buildService {
+    return Container(
+      color: Color(0xFFFFFFFF),
+      height: 250,
       child: GridView.builder(
         itemCount: serviceItems.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -111,5 +142,9 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     );
+  }
+
+  Widget get _buildNotification {
+    return Container(height: 150, color: Colors.yellow);
   }
 }
