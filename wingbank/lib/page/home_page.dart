@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:wingbank/models/serviceitem.dart';
 import 'package:wingbank/widget/serviceitembuild.dart';
@@ -95,20 +96,7 @@ class _HomePageState extends State<HomePage> {
       color: primaryGreen,
       child: ListView(
         children: [
-          Flexible(
-            flex: 4,
-            child: Container(
-              height: 40,
-              decoration: BoxDecoration(
-                border: Border.all(color: accentBlue),
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
-                ),
-              ),
-            ),
-          ),
+          Flexible(flex: 4, child: _buildNotificationBanner()),
           Flexible(flex: 1, child: _buildService),
           Flexible(flex: 1, child: Container(height: 150, color: Colors.grey)),
           Flexible(
@@ -124,27 +112,39 @@ class _HomePageState extends State<HomePage> {
     return Drawer();
   }
 
+  Widget _buildNotificationBanner() {
+    return Container(
+      height: 30,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(50),
+          topRight: Radius.circular(50),
+        ),
+      ),
+    );
+  }
+
   Widget get _buildService {
     return Container(
       color: Color(0xFFFFFFFF),
-      height: 250,
+      height: 300,
       child: GridView.builder(
+        shrinkWrap: false,
         itemCount: serviceItems.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: 1.0,
-          mainAxisSpacing: 4,
-          crossAxisSpacing: 4,
+          childAspectRatio: 3 / 2.1, //3 / //2.2,
         ),
         itemBuilder: (context, index) {
           ServiceItem item = serviceItems[index];
-          return Serviceitembuild();
+          return ServiceItembuild(item: item);
         },
       ),
     );
   }
 
   Widget get _buildNotification {
-    return Container(height: 150, color: Colors.yellow);
+    return Container(height: 150, color: Colors.amber);
   }
 }
