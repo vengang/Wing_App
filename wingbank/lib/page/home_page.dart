@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wingbank/models/appcolor.dart';
+import 'package:wingbank/models/promoCardItem.dart';
 import 'package:wingbank/models/serviceitem.dart';
 import 'package:wingbank/widget/promoCard.dart';
 import 'package:wingbank/widget/serviceitembuild.dart';
-import 'package:wingbank/models/promoCardItem.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -29,6 +28,29 @@ class _HomePageState extends State<HomePage> {
       appBar: _buildAppBar,
       drawer: _buildDrawer(),
       body: _buildBody,
+      bottomNavigationBar: _buildBottonNavigation,
+    );
+  }
+
+  Widget get _buildBottonNavigation {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      // currentIndex: _currentIndex,
+      // onTap: (index) {
+      //   setState(() {
+      //     _currentIndex = index;
+      //   });
+      // },
+      selectedItemColor: primaryGreen,
+      unselectedItemColor: Colors.grey,
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.account_balance_wallet),
+          label: 'Wallet',
+        ),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      ],
     );
   }
 
@@ -102,10 +124,8 @@ class _HomePageState extends State<HomePage> {
           Flexible(flex: 4, child: _buildNotificationBanner()),
           Flexible(flex: 1, child: _buildService),
           Flexible(flex: 1, child: _buildPromoCard),
-          Flexible(
-            flex: 1,
-            child: Container(height: 150, color: Colors.lightBlue),
-          ),
+          Flexible(flex: 1, child: _buildPromotions),
+          Flexible(flex: 1, child: _buildPromotionsBody),
         ],
       ),
     );
@@ -153,7 +173,7 @@ class _HomePageState extends State<HomePage> {
       color: AppColors.bgGrey,
       padding: const EdgeInsets.only(top: 16, bottom: 8),
       child: SizedBox(
-        height: 140,
+        height: 155,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
@@ -166,7 +186,36 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget get _buildNotification {
-    return Container(height: 150, color: Colors.amber);
+  Widget get _buildPromotions {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsetsGeometry.all(8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Promotions',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                InkWell(
+                  child: Text(
+                    'Show All >',
+                    style: TextStyle(color: Colors.blue, fontSize: 15),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget get _buildPromotionsBody {
+    return Container();
   }
 }
