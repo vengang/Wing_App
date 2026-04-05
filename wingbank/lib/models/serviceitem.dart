@@ -6,7 +6,7 @@ class ServiceItem {
 }
 
 final List<ServiceItem> serviceItems = [
-  ServiceItem('My Account', 'lib/images/myaccount.png'),
+  ServiceItem('My Account', 'lib/images/myaccount2.png'),
   ServiceItem('Local Transfer', 'lib/images/localtransfer.png'),
   ServiceItem('World Transfer', 'lib/images/wroldtransfer.png'),
   ServiceItem('Bill Payment', 'lib/images/bilpayment.png'),

@@ -20,7 +20,7 @@ class ServiceItembuild extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              // service icon 
+              // service icon
               child: Image.asset(
                 item.image,
                 fit: BoxFit.cover,
@@ -28,7 +28,7 @@ class ServiceItembuild extends StatelessWidget {
               ),
             ),
             // title icon
-            Text(item.title),
+            Text(item.title, style: TextStyle(fontWeight: FontWeight.w500)),
           ],
         ),
       ),

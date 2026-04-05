@@ -1,7 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:wingbank/models/appcolor.dart';
 import 'package:wingbank/models/serviceitem.dart';
+import 'package:wingbank/widget/promoCard.dart';
 import 'package:wingbank/widget/serviceitembuild.dart';
+import 'package:wingbank/models/promoCardItem.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   static const Color primaryBlue = Color(0xFF1565C0);
   static const Color lightBlue = Color(0xFF1E88E5);
   static const Color accentBlue = Color(0xFF0D47A1);
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
@@ -98,7 +101,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Flexible(flex: 4, child: _buildNotificationBanner()),
           Flexible(flex: 1, child: _buildService),
-          Flexible(flex: 1, child: Container(height: 150, color: Colors.grey)),
+          Flexible(flex: 1, child: _buildPromoCard),
           Flexible(
             flex: 1,
             child: Container(height: 150, color: Colors.lightBlue),
@@ -114,9 +117,10 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildNotificationBanner() {
     return Container(
-      height: 30,
+      height: 18,
       decoration: BoxDecoration(
         color: Colors.white,
+
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(50),
           topRight: Radius.circular(50),
@@ -140,6 +144,24 @@ class _HomePageState extends State<HomePage> {
           ServiceItem item = serviceItems[index];
           return ServiceItembuild(item: item);
         },
+      ),
+    );
+  }
+
+  Widget get _buildPromoCard {
+    return Container(
+      color: AppColors.bgGrey,
+      padding: const EdgeInsets.only(top: 16, bottom: 8),
+      child: SizedBox(
+        height: 140,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            PromoCard item = promoCards[index];
+            return Promocard(item: item);
+          },
+          itemCount: promoCards.length,
+        ),
       ),
     );
   }
