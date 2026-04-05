@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wingbank/models/appcolor.dart';
 import 'package:wingbank/models/serviceitem.dart';
+import 'package:wingbank/widget/promoCard.dart';
 import 'package:wingbank/widget/serviceitembuild.dart';
+import 'package:wingbank/models/promoCardItem.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,12 +22,13 @@ class _HomePageState extends State<HomePage> {
   static const Color primaryBlue = Color(0xFF1565C0);
   static const Color lightBlue = Color(0xFF1E88E5);
   static const Color accentBlue = Color(0xFF0D47A1);
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       appBar: _buildAppBar,
       drawer: _buildDrawer(),
-      // body: Column(children: [_buildHeader(), _buildService()]),
+      body: _buildBody,
     );
   }
 
@@ -90,26 +94,79 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget get _buildBody {
+    return Container(
+      color: primaryGreen,
+      child: ListView(
+        children: [
+          Flexible(flex: 4, child: _buildNotificationBanner()),
+          Flexible(flex: 1, child: _buildService),
+          Flexible(flex: 1, child: _buildPromoCard),
+          Flexible(
+            flex: 1,
+            child: Container(height: 150, color: Colors.lightBlue),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildDrawer() {
     return Drawer();
   }
 
-  Widget _buildService() {
-    return SizedBox(
-      height: 400,
+  Widget _buildNotificationBanner() {
+    return Container(
+      height: 18,
+      decoration: BoxDecoration(
+        color: Colors.white,
+
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(50),
+          topRight: Radius.circular(50),
+        ),
+      ),
+    );
+  }
+
+  Widget get _buildService {
+    return Container(
+      color: Color(0xFFFFFFFF),
+      height: 300,
       child: GridView.builder(
+        shrinkWrap: false,
         itemCount: serviceItems.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: 1.0,
-          mainAxisSpacing: 4,
-          crossAxisSpacing: 4,
+          childAspectRatio: 3 / 2.1, //3 / //2.2,
         ),
         itemBuilder: (context, index) {
           ServiceItem item = serviceItems[index];
-          return Serviceitembuild();
+          return ServiceItembuild(item: item);
         },
       ),
     );
+  }
+
+  Widget get _buildPromoCard {
+    return Container(
+      color: AppColors.bgGrey,
+      padding: const EdgeInsets.only(top: 16, bottom: 8),
+      child: SizedBox(
+        height: 140,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            PromoCard item = promoCards[index];
+            return Promocard(item: item);
+          },
+          itemCount: promoCards.length,
+        ),
+      ),
+    );
+  }
+
+  Widget get _buildNotification {
+    return Container(height: 150, color: Colors.amber);
   }
 }
