@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:wingbank/models/icon.dart';
 import 'package:wingbank/models/serviceitem.dart';
+import 'package:wingbank/widget/aboutPage.dart';
+import 'package:wingbank/widget/locatorPage.dart';
+import 'package:wingbank/widget/referpage.dart';
 import 'package:wingbank/widget/serviceitembuild.dart';
+import 'package:wingbank/widget/setting.dart';
+import 'package:wingbank/widget/termPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,7 +29,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: _buildAppBar,
-      drawer: _buildDrawer(),
+      drawer: buildDrawer(context),
       // body: Column(children: [_buildHeader(), _buildService()]),
     );
   }
@@ -90,9 +96,136 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildDrawer() {
-    return Drawer();
-  }
+  Widget buildDrawer(BuildContext context) {
+  return Drawer(
+    child: Column(
+      children: [
+
+        /// 🔰 TOP LOGO
+        Container(
+          width: double.infinity,
+          height: 140,
+          color: darkGreen,
+          alignment: Alignment.center,
+          child: Image.asset(
+            "lib/images/wing.png",
+            height: 40,
+          ),
+        ),
+
+        /// 👤 USER INFO
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          color: primaryBlue,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundImage:
+                        AssetImage("lib/images/profile.png"),
+                  ),
+                  const SizedBox(width: 15),
+
+                  /// TEXT INFO
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "Seang Kimsour",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        "Current Account",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Text(
+                        "#010829656",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+
+              const SizedBox(height: 10),
+
+              /// VIEW PROFILE
+              Row(
+                children: const [
+                  Text(
+                    "View Profile",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Icon(Icons.arrow_right, color: Colors.white),
+                ],
+              )
+            ],
+          ),
+        ),
+
+        /// 📋 MENU LIST
+        Expanded(
+          child: ListView(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            children: [
+
+              buildMenuItem(
+                context,
+                icon: AppIcons.home,
+                title: "Home",
+                page: const HomePage(),
+              ),
+
+              buildMenuItem(
+                context,
+                icon: AppIcons.referFriends,
+                title: "Refer Friends",
+                page: Referpage(),
+              ),
+
+              buildMenuItem(
+                context,
+                icon: AppIcons.locator,
+                title: "Locator",
+                page: LocatorPage(),
+              ),
+
+              buildMenuItem(
+                context,
+                icon: AppIcons.about,
+                title: "About",
+                page: Aboutpage(),
+              ),
+
+              buildMenuItem(
+                context,
+                icon: AppIcons.terms,
+                title: "Terms & Conditions",
+                page: Termpage(),
+              ),
+
+              buildMenuItem(
+                context,
+                icon: AppIcons.settings,
+                title: "Setting",
+                page: Setting(),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
   Widget _buildService() {
     return SizedBox(
@@ -112,4 +245,27 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+Widget buildMenuItem(
+  BuildContext context, {
+  required IconData icon,
+  required String title,
+  required Widget page,
+}) {
+  return ListTile(
+    leading: Icon(icon, size: 28, color: Colors.black87),
+    title: Text(
+      title,
+      style: const TextStyle(fontSize: 15),
+    ),
+    onTap: () {
+      Navigator.pop(context); // close drawer
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => page),
+      );
+    },
+  );
 }
