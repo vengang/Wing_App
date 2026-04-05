@@ -9,19 +9,19 @@ class Promocard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(5),
-      margin: EdgeInsets.symmetric(horizontal: 2.0),
-      width: 120,
+      // padding: const EdgeInsets.all(5),
+      margin: EdgeInsets.symmetric(horizontal: 5.0),
+      width: MediaQuery.of(context).size.width * .3,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: item.gradient,
         ),
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: item.gradient.last.withOpacity(0.4),
+            color: item.gradient.last.withValues(alpha: 0.4),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
@@ -35,7 +35,7 @@ class Promocard extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.hardEdge,
       children: [
-        // Decorative circle in background
+        // Decorative circle — bottom right
         Positioned(
           bottom: -20,
           right: -20,
@@ -44,10 +44,11 @@ class Promocard extends StatelessWidget {
             height: 90,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white.withOpacity(0.08),
+              color: Colors.white.withValues(alpha: 0.08),
             ),
           ),
         ),
+        // Decorative circle — top left
         Positioned(
           top: -15,
           left: -15,
@@ -56,39 +57,39 @@ class Promocard extends StatelessWidget {
             height: 60,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white.withOpacity(0.06),
+              color: Colors.white.withValues(alpha: 0.06),
             ),
           ),
         ),
         // Content
         Padding(
-          padding: const EdgeInsets.all(14),
-          child: SizedBox(
-            height: 110,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  item.title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    height: 1.2,
-                  ),
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Title
+              Text(
+                item.title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  height: 1.2,
                 ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Image.asset(
-                    item.icon,
-                    width: 56,
-                    height: 100,
-                    fit: BoxFit.contain,
-                  ),
+              ),
+
+              // alignment: Alignment.bottomRight,
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Image.asset(
+                  item.icon,
+                  width: double.infinity,
+                  height: 100,
+                  fit: BoxFit.cover,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ],
