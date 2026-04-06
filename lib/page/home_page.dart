@@ -1,8 +1,13 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:wingbank/models/appcolor.dart';
+import 'package:wingbank/models/datapromotion.dart';
 import 'package:wingbank/models/icon.dart';
+import 'package:wingbank/models/promoCardItem.dart';
 import 'package:wingbank/models/serviceitem.dart';
 import 'package:wingbank/widget/aboutPage.dart';
 import 'package:wingbank/widget/locatorPage.dart';
+import 'package:wingbank/widget/promoCard.dart';
 import 'package:wingbank/widget/referpage.dart';
 import 'package:wingbank/widget/serviceitembuild.dart';
 import 'package:wingbank/widget/setting.dart';
@@ -25,12 +30,36 @@ class _HomePageState extends State<HomePage> {
   static const Color primaryBlue = Color(0xFF1565C0);
   static const Color lightBlue = Color(0xFF1E88E5);
   static const Color accentBlue = Color(0xFF0D47A1);
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       appBar: _buildAppBar,
-      drawer: buildDrawer(context),
-      // body: Column(children: [_buildHeader(), _buildService()]),
+      drawer: _buildDrawer,
+      body: _buildBody,
+      bottomNavigationBar: _buildBottonNavigation,
+    );
+  }
+
+  Widget get _buildBottonNavigation {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      // currentIndex: _currentIndex,
+      // onTap: (index) {
+      //   setState(() {
+      //     _currentIndex = index;
+      //   });
+      // },
+      selectedItemColor: primaryGreen,
+      unselectedItemColor: Colors.grey,
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.account_balance_wallet),
+          label: 'Wallet',
+        ),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      ],
     );
   }
 
@@ -96,155 +125,233 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildDrawer(BuildContext context) {
-  return Drawer(
-    child: Column(
-      children: [
+  Widget get _buildBody {
+    return Container(
+      color: primaryGreen,
+      child: ListView(
+        children: [
+          Flexible(flex: 4, child: _buildNotificationBanner()),
+          Flexible(flex: 1, child: _buildService),
+          Flexible(flex: 1, child: _buildPromoCard),
+          Flexible(flex: 1, child: _buildPromotions),
+          // Flexible(flex: 1, child: _buildPromotionsBody),
+        ],
+      ),
+    );
+  }
 
-        /// 🔰 TOP LOGO
-        Container(
-          width: double.infinity,
-          height: 140,
-          color: darkGreen,
-          alignment: Alignment.center,
-          child: Image.asset(
-            "lib/images/wing.png",
-            height: 40,
+  Widget get _buildDrawer {
+    return Drawer(
+      child: Column(
+        children: [
+          /// 🔰 TOP LOGO
+          Container(
+            width: double.infinity,
+            height: 140,
+            color: darkGreen,
+            alignment: Alignment.center,
+            child: Image.asset("lib/images/wing.png", height: 40),
           ),
-        ),
 
-        /// 👤 USER INFO
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(16),
-          color: primaryBlue,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundImage:
-                        AssetImage("lib/images/profile.png"),
-                  ),
-                  const SizedBox(width: 15),
+          /// 👤 USER INFO
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
+            color: primaryBlue,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundImage: AssetImage("lib/images/profile.png"),
+                    ),
+                    const SizedBox(width: 15),
 
-                  /// TEXT INFO
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        "Seang Kimsour",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                    /// TEXT INFO
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Seang Kimsour",
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        "Current Account",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Text(
-                        "#010829656",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                        SizedBox(height: 5),
+                        Text(
+                          "Current Account",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          "#010829656",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
 
-              const SizedBox(height: 10),
+                const SizedBox(height: 10),
 
-              /// VIEW PROFILE
-              Row(
-                children: const [
-                  Text(
-                    "View Profile",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Icon(Icons.arrow_right, color: Colors.white),
-                ],
-              )
-            ],
+                /// VIEW PROFILE
+                Row(
+                  children: const [
+                    Text("View Profile", style: TextStyle(color: Colors.white)),
+                    Icon(Icons.arrow_right, color: Colors.white),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
 
-        /// 📋 MENU LIST
-        Expanded(
-          child: ListView(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            children: [
+          /// 📋 MENU LIST
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              children: [
+                buildMenuItem(
+                  context,
+                  icon: AppIcons.home,
+                  title: "Home",
+                  page: const HomePage(),
+                ),
 
-              buildMenuItem(
-                context,
-                icon: AppIcons.home,
-                title: "Home",
-                page: const HomePage(),
-              ),
+                buildMenuItem(
+                  context,
+                  icon: AppIcons.referFriends,
+                  title: "Refer Friends",
+                  page: Referpage(),
+                ),
 
-              buildMenuItem(
-                context,
-                icon: AppIcons.referFriends,
-                title: "Refer Friends",
-                page: Referpage(),
-              ),
+                buildMenuItem(
+                  context,
+                  icon: AppIcons.locator,
+                  title: "Locator",
+                  page: LocatorPage(),
+                ),
 
-              buildMenuItem(
-                context,
-                icon: AppIcons.locator,
-                title: "Locator",
-                page: LocatorPage(),
-              ),
+                buildMenuItem(
+                  context,
+                  icon: AppIcons.about,
+                  title: "About",
+                  page: Aboutpage(),
+                ),
 
-              buildMenuItem(
-                context,
-                icon: AppIcons.about,
-                title: "About",
-                page: Aboutpage(),
-              ),
+                buildMenuItem(
+                  context,
+                  icon: AppIcons.terms,
+                  title: "Terms & Conditions",
+                  page: Termpage(),
+                ),
 
-              buildMenuItem(
-                context,
-                icon: AppIcons.terms,
-                title: "Terms & Conditions",
-                page: Termpage(),
-              ),
-
-              buildMenuItem(
-                context,
-                icon: AppIcons.settings,
-                title: "Setting",
-                page: Setting(),
-              ),
-            ],
+                buildMenuItem(
+                  context,
+                  icon: AppIcons.settings,
+                  title: "Setting",
+                  page: Setting(),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}
+        ],
+      ),
+    );
+  }
 
-  Widget _buildService() {
-    return SizedBox(
-      height: 400,
+  Widget _buildNotificationBanner() {
+    return Container(
+      height: 18,
+      decoration: BoxDecoration(
+        color: Colors.white,
+
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(50),
+          topRight: Radius.circular(50),
+        ),
+      ),
+    );
+  }
+
+  Widget get _buildService {
+    return Container(
+      color: Color(0xFFFFFFFF),
+      height: 300,
       child: GridView.builder(
+        shrinkWrap: false,
         itemCount: serviceItems.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: 1.0,
-          mainAxisSpacing: 4,
-          crossAxisSpacing: 4,
+          childAspectRatio: 3 / 2.1, //3 / //2.2,
         ),
         itemBuilder: (context, index) {
           ServiceItem item = serviceItems[index];
-          return Serviceitembuild();
+          return ServiceItembuild(item: item);
         },
       ),
     );
   }
+
+  Widget get _buildPromoCard {
+    return Container(
+      color: AppColors.bgGrey,
+      padding: const EdgeInsets.only(top: 16, bottom: 8),
+      child: SizedBox(
+        height: 155,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            PromoCard item = promoCards[index];
+            return Promocard(item: item);
+          },
+          itemCount: promoCards.length,
+        ),
+      ),
+    );
+  }
+
+  Widget get _buildPromotions {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsetsGeometry.all(8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Promotions',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                InkWell(
+                  child: Text(
+                    'Show All >',
+                    style: TextStyle(color: Colors.blue, fontSize: 15),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Widget get _buildPromotionsBody {
+  //   return CarouselSlider.builder(
+  //     itemCount: promotionItem.length,
+  //     itemBuilder: (context, index, viewport) {
+  //       Promotiondata item = promotionItem[index];
+  //       return Card(color: Colors.amber);
+  //     },
+  //     options: CarouselOptions(height: 180, autoPlay: true),
+  //   );
+  // }
 }
 
 Widget buildMenuItem(
@@ -255,17 +362,11 @@ Widget buildMenuItem(
 }) {
   return ListTile(
     leading: Icon(icon, size: 28, color: Colors.black87),
-    title: Text(
-      title,
-      style: const TextStyle(fontSize: 15),
-    ),
+    title: Text(title, style: const TextStyle(fontSize: 15)),
     onTap: () {
       Navigator.pop(context); // close drawer
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => page),
-      );
+      Navigator.push(context, MaterialPageRoute(builder: (context) => page));
     },
   );
 }
