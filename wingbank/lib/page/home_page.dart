@@ -1,9 +1,11 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:wingbank/models/appcolor.dart';
 import 'package:wingbank/models/promoCardItem.dart';
 import 'package:wingbank/models/serviceitem.dart';
 import 'package:wingbank/widget/promoCard.dart';
 import 'package:wingbank/widget/serviceitembuild.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -217,5 +219,12 @@ class _HomePageState extends State<HomePage> {
 
   Widget get _buildPromotionsBody {
     return Container();
+    // return CarouselSlider.builder(
+    //   itemCount: 1,
+    //   itemBuilder: (context, index, viewport) {
+    //     return Card();
+    //   },
+    //   options: CarouselOptions(autoPlay: true),
+    // );
   }
 }
