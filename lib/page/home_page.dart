@@ -135,7 +135,10 @@ class _HomePageState extends State<HomePage> {
           Flexible(flex: 1, child: _buildService),
           Flexible(flex: 1, child: _buildPromoCard),
           Flexible(flex: 1, child: _buildPromotions),
-          Flexible(flex: 1, child: _buildPromotionsBody),
+          Flexible(
+            flex: 1,
+            child: Container(color: Colors.white, child: _buildPromotionsBody),
+          ),
         ],
       ),
     );
@@ -265,7 +268,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildNotificationBanner() {
     return Container(
-      height: 18,
+      height: 12,
       decoration: BoxDecoration(
         color: Colors.white,
 
@@ -280,7 +283,7 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildService {
     return Container(
       color: Color(0xFFFFFFFF),
-      height: 300,
+      height: 290,
       child: GridView.builder(
         shrinkWrap: false,
         itemCount: serviceItems.length,
@@ -351,8 +354,8 @@ class _HomePageState extends State<HomePage> {
         return pro(item: item);
       },
       options: CarouselOptions(
-        height: 180,
-        viewportFraction: 2,
+        scrollPhysics: BouncingScrollPhysics(),
+        height: 130,
         autoPlay: true,
       ),
     );
