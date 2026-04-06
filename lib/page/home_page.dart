@@ -8,6 +8,7 @@ import 'package:wingbank/models/serviceitem.dart';
 import 'package:wingbank/widget/aboutPage.dart';
 import 'package:wingbank/widget/locatorPage.dart';
 import 'package:wingbank/widget/promoCard.dart';
+import 'package:wingbank/widget/protiondata.dart';
 import 'package:wingbank/widget/referpage.dart';
 import 'package:wingbank/widget/serviceitembuild.dart';
 import 'package:wingbank/widget/setting.dart';
@@ -134,7 +135,7 @@ class _HomePageState extends State<HomePage> {
           Flexible(flex: 1, child: _buildService),
           Flexible(flex: 1, child: _buildPromoCard),
           Flexible(flex: 1, child: _buildPromotions),
-          // Flexible(flex: 1, child: _buildPromotionsBody),
+          Flexible(flex: 1, child: _buildPromotionsBody),
         ],
       ),
     );
@@ -342,16 +343,20 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Widget get _buildPromotionsBody {
-  //   return CarouselSlider.builder(
-  //     itemCount: promotionItem.length,
-  //     itemBuilder: (context, index, viewport) {
-  //       Promotiondata item = promotionItem[index];
-  //       return Card(color: Colors.amber);
-  //     },
-  //     options: CarouselOptions(height: 180, autoPlay: true),
-  //   );
-  // }
+  Widget get _buildPromotionsBody {
+    return CarouselSlider.builder(
+      itemCount: promotionItem.length,
+      itemBuilder: (context, index, viewport) {
+        Promotiondata item = promotionItem[index];
+        return pro(item: item);
+      },
+      options: CarouselOptions(
+        height: 180,
+        viewportFraction: 2,
+        autoPlay: true,
+      ),
+    );
+  }
 }
 
 Widget buildMenuItem(

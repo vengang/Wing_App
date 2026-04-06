@@ -6,13 +6,13 @@ class ServiceItem {
 }
 
 final List<ServiceItem> serviceItems = [
-  ServiceItem('My Account', 'lib/images/myacc.png'),
-  ServiceItem('Local Transfer', 'lib/images/localtranfer.png'),
-  ServiceItem('World Transfer', 'lib/images/worldtran.png'),
-  ServiceItem('Bill Payment', 'lib/images/bill.png'),
-  ServiceItem('Phone Top up', 'lib/images/topup.png'),
-  ServiceItem('Code To Wing', 'lib/images/code.png'),
-  ServiceItem('New Account', 'lib/images/new acc.png'),
+  ServiceItem('My Account', 'lib/images/myaccount2.png'),
+  ServiceItem('Local Transfer', 'lib/images/localtransfer.png'),
+  ServiceItem('World Transfer', 'lib/images/wroldtransfer.png'),
+  ServiceItem('Bill Payment', 'lib/images/bilpayment.png'),
+  ServiceItem('Phone Top up', 'lib/images/phone top up.png'),
+  ServiceItem('Code To Wing', 'lib/images/codetowing.png'),
+  ServiceItem('New Account', 'lib/images/newaccount.png'),
   ServiceItem('Loan', 'lib/images/loan.png'),
-  ServiceItem('Free Cash Out', 'lib/images/freecash.png'),
+  ServiceItem('Free Cash Out', 'lib/images/freecashout.png'),
 ];
