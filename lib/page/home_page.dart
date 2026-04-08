@@ -38,29 +38,6 @@ class _HomePageState extends State<HomePage> {
       appBar: _buildAppBar,
       drawer: _buildDrawer,
       body: _buildBody,
-      bottomNavigationBar: _buildBottonNavigation,
-    );
-  }
-
-  Widget get _buildBottonNavigation {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      // currentIndex: _currentIndex,
-      // onTap: (index) {
-      //   setState(() {
-      //     _currentIndex = index;
-      //   });
-      // },
-      selectedItemColor: primaryGreen,
-      unselectedItemColor: Colors.grey,
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.account_balance_wallet),
-          label: 'Wallet',
-        ),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-      ],
     );
   }
 
@@ -129,16 +106,13 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildBody {
     return Container(
       color: primaryGreen,
-      child: ListView(
+      child: Column(
         children: [
-          Flexible(flex: 4, child: _buildNotificationBanner()),
-          Flexible(flex: 1, child: _buildService),
-          Flexible(flex: 1, child: _buildPromoCard),
-          Flexible(flex: 1, child: _buildPromotions),
-          Flexible(
-            flex: 1,
-            child: Container(color: Colors.white, child: _buildPromotionsBody),
-          ),
+          _buildNotificationBanner(),
+          _buildService,
+          _buildPromoCard,
+          _buildPromotions,
+          _buildPromotionsBody,
         ],
       ),
     );
@@ -213,53 +187,51 @@ class _HomePageState extends State<HomePage> {
           ),
 
           /// 📋 MENU LIST
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              children: [
-                buildMenuItem(
-                  context,
-                  icon: AppIcons.home,
-                  title: "Home",
-                  page: const HomePage(),
-                ),
+          ListView(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            children: [
+              buildMenuItem(
+                context,
+                icon: AppIcons.home,
+                title: "Home",
+                page: const HomePage(),
+              ),
 
-                buildMenuItem(
-                  context,
-                  icon: AppIcons.referFriends,
-                  title: "Refer Friends",
-                  page: Referpage(),
-                ),
+              buildMenuItem(
+                context,
+                icon: AppIcons.referFriends,
+                title: "Refer Friends",
+                page: Referpage(),
+              ),
 
-                buildMenuItem(
-                  context,
-                  icon: AppIcons.locator,
-                  title: "Locator",
-                  page: LocatorPage(),
-                ),
+              buildMenuItem(
+                context,
+                icon: AppIcons.locator,
+                title: "Locator",
+                page: LocatorPage(),
+              ),
 
-                buildMenuItem(
-                  context,
-                  icon: AppIcons.about,
-                  title: "About",
-                  page: Aboutpage(),
-                ),
+              buildMenuItem(
+                context,
+                icon: AppIcons.about,
+                title: "About",
+                page: Aboutpage(),
+              ),
 
-                buildMenuItem(
-                  context,
-                  icon: AppIcons.terms,
-                  title: "Terms & Conditions",
-                  page: Termpage(),
-                ),
+              buildMenuItem(
+                context,
+                icon: AppIcons.terms,
+                title: "Terms & Conditions",
+                page: Termpage(),
+              ),
 
-                buildMenuItem(
-                  context,
-                  icon: AppIcons.settings,
-                  title: "Setting",
-                  page: Setting(),
-                ),
-              ],
-            ),
+              buildMenuItem(
+                context,
+                icon: AppIcons.settings,
+                title: "Setting",
+                page: Setting(),
+              ),
+            ],
           ),
         ],
       ),
@@ -283,13 +255,13 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildService {
     return Container(
       color: Color(0xFFFFFFFF),
-      height: 290,
+      height: 250,
       child: GridView.builder(
         shrinkWrap: false,
         itemCount: serviceItems.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: 3 / 2.1, //3 / //2.2,
+          childAspectRatio: 3 / 2.1,
         ),
         itemBuilder: (context, index) {
           ServiceItem item = serviceItems[index];

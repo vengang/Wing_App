@@ -5,7 +5,8 @@ class Promotiondata {
 }
 
 final List<Promotiondata> promotionItem = [
-  Promotiondata('lib/images/img1.JPG'),
+  Promotiondata('lib/images/wingimg.png'),
   Promotiondata('lib/images/img2.JPG'),
   Promotiondata('lib/images/img3.JPG'),
+  // Promotiondata('lib/images/wingimg4.JPG'),
 ];

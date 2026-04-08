@@ -17,11 +17,9 @@ class pro extends StatelessWidget {
           color: Colors.amber,
           borderRadius: BorderRadius.all(Radius.circular(30)),
         ),
-        child: Expanded(
-          child: ClipRRect(
-            borderRadius: BorderRadiusGeometry.circular(25),
-            child: Image.asset(item.img, fit: BoxFit.cover),
-          ),
+        child: ClipRRect(
+          borderRadius: BorderRadiusGeometry.circular(25),
+          child: Image.asset(item.img, fit: BoxFit.cover),
         ),
       ),
     );
