@@ -16,21 +16,19 @@ class ServiceItembuild extends StatelessWidget {
         //   context,
         // ).push(MaterialPageRoute(builder: (context) => Testing()));
       },
-      child: SizedBox(
-        child: Column(
-          children: [
-            Expanded(
-              // service icon
-              child: Image.asset(
-                item.image,
-                fit: BoxFit.cover,
-                width: double.infinity,
-              ),
+      child: Column(
+        children: [
+          Expanded(
+            // service icon
+            child: Image.asset(
+              item.image,
+              fit: BoxFit.cover,
+              width: double.infinity,
             ),
-            // title icon
-            Text(item.title, style: TextStyle(fontWeight: FontWeight.w500)),
-          ],
-        ),
+          ),
+          // title icon
+          Text(item.title, style: TextStyle(fontWeight: FontWeight.w500)),
+        ],
       ),
     );
   }

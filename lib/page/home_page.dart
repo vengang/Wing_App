@@ -5,6 +5,9 @@ import 'package:wingbank/models/datapromotion.dart';
 import 'package:wingbank/models/icon.dart';
 import 'package:wingbank/models/promoCardItem.dart';
 import 'package:wingbank/models/serviceitem.dart';
+import 'package:wingbank/page/navigationPage/favorite.dart';
+import 'package:wingbank/page/navigationPage/help.dart';
+import 'package:wingbank/page/navigationPage/wallet.dart';
 import 'package:wingbank/widget/aboutPage.dart';
 import 'package:wingbank/widget/locatorPage.dart';
 import 'package:wingbank/widget/promoCard.dart';
@@ -26,6 +29,7 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool isclick = false;
+  int _currentIndex = 0;
   static const Color primaryGreen = Color(0xFFa9cb39);
   static const Color darkGreen = Color(0xFF93df41);
   static const Color primaryBlue = Color(0xFF1565C0);
@@ -38,6 +42,85 @@ class _HomePageState extends State<HomePage> {
       appBar: _buildAppBar,
       drawer: _buildDrawer,
       body: _buildBody,
+      bottomNavigationBar: _buildBottonNavigation,
+      floatingActionButton: _buildFloatingActionButton,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
+  }
+
+  // body build
+  Widget get _buildBody {
+    return Container(
+      color: primaryGreen,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildNotificationBanner(),
+            _buildService,
+            _buildPromoCard,
+            _buildPromotions,
+            Container(color: Colors.white, child: _buildPromotionsBody),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget get btsNavigationBody {
+    return IndexedStack(
+      index: _currentIndex,
+      children: [_buildBody, Favorite(), Wallet(), Help(), Card()],
+    );
+  }
+
+  Widget get _buildBottonNavigation {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      currentIndex: _currentIndex,
+      onTap: (index) {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
+      iconSize: 25,
+      elevation: 8,
+      selectedItemColor: primaryGreen,
+      unselectedItemColor: Colors.grey,
+      items: [
+        BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favorites"),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.qr_code_scanner_outlined),
+          label: '',
+        ),
+        BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: 'Help'),
+        BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: 'Card'),
+      ],
+    );
+  }
+
+  // flaoting action button
+  Widget get _buildFloatingActionButton {
+    return Container(
+      margin: EdgeInsets.only(top: 25),
+      width: 65,
+      height: 65,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: BoxBorder.all(color: Colors.white, width: 2),
+      ),
+      child: FloatingActionButton.large(
+        elevation: 0,
+        onPressed: () {
+          setState(() {
+            isclick = !isclick;
+          });
+        },
+
+        backgroundColor: Colors.blue,
+        shape: CircleBorder(),
+        child: Icon(Icons.qr_code_scanner_outlined, color: Colors.white),
+      ),
     );
   }
 
@@ -100,21 +183,6 @@ class _HomePageState extends State<HomePage> {
         ),
         SizedBox(width: 10),
       ],
-    );
-  }
-
-  Widget get _buildBody {
-    return Container(
-      color: primaryGreen,
-      child: Column(
-        children: [
-          _buildNotificationBanner(),
-          _buildService,
-          _buildPromoCard,
-          _buildPromotions,
-          _buildPromotionsBody,
-        ],
-      ),
     );
   }
 
@@ -187,51 +255,53 @@ class _HomePageState extends State<HomePage> {
           ),
 
           /// 📋 MENU LIST
-          ListView(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            children: [
-              buildMenuItem(
-                context,
-                icon: AppIcons.home,
-                title: "Home",
-                page: const HomePage(),
-              ),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              children: [
+                buildMenuItem(
+                  context,
+                  icon: AppIcons.home,
+                  title: "Home",
+                  page: const HomePage(),
+                ),
 
-              buildMenuItem(
-                context,
-                icon: AppIcons.referFriends,
-                title: "Refer Friends",
-                page: Referpage(),
-              ),
+                buildMenuItem(
+                  context,
+                  icon: AppIcons.referFriends,
+                  title: "Refer Friends",
+                  page: Referpage(),
+                ),
 
-              buildMenuItem(
-                context,
-                icon: AppIcons.locator,
-                title: "Locator",
-                page: LocatorPage(),
-              ),
+                buildMenuItem(
+                  context,
+                  icon: AppIcons.locator,
+                  title: "Locator",
+                  page: LocatorPage(),
+                ),
 
-              buildMenuItem(
-                context,
-                icon: AppIcons.about,
-                title: "About",
-                page: Aboutpage(),
-              ),
+                buildMenuItem(
+                  context,
+                  icon: AppIcons.about,
+                  title: "About",
+                  page: Aboutpage(),
+                ),
 
-              buildMenuItem(
-                context,
-                icon: AppIcons.terms,
-                title: "Terms & Conditions",
-                page: Termpage(),
-              ),
+                buildMenuItem(
+                  context,
+                  icon: AppIcons.terms,
+                  title: "Terms & Conditions",
+                  page: Termpage(),
+                ),
 
-              buildMenuItem(
-                context,
-                icon: AppIcons.settings,
-                title: "Setting",
-                page: Setting(),
-              ),
-            ],
+                buildMenuItem(
+                  context,
+                  icon: AppIcons.settings,
+                  title: "Setting",
+                  page: Setting(),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -255,13 +325,14 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildService {
     return Container(
       color: Color(0xFFFFFFFF),
-      height: 250,
+      height: 275,
       child: GridView.builder(
-        shrinkWrap: false,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         itemCount: serviceItems.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: 3 / 2.1,
+          childAspectRatio: 3 / 2, //3 / //2.2,
         ),
         itemBuilder: (context, index) {
           ServiceItem item = serviceItems[index];
@@ -276,7 +347,8 @@ class _HomePageState extends State<HomePage> {
       color: AppColors.bgGrey,
       padding: const EdgeInsets.only(top: 16, bottom: 8),
       child: SizedBox(
-        height: 155,
+        height: 135,
+
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {

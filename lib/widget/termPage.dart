@@ -9,4 +9,4 @@ class Termpage extends StatelessWidget {
       appBar: AppBar(title: Text("Term Page"),),
     );
   }
-}
+}  
