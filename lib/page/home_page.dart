@@ -76,6 +76,7 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildBottonNavigation {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
+
       currentIndex: _currentIndex,
       onTap: (index) {
         setState(() {
@@ -102,12 +103,13 @@ class _HomePageState extends State<HomePage> {
   // flaoting action button
   Widget get _buildFloatingActionButton {
     return Container(
-      margin: EdgeInsets.only(top: 25),
-      width: 65,
-      height: 65,
+      alignment: Alignment.center,
+      margin: EdgeInsets.only(top: 30),
+      width: 60,
+      height: 60,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: BoxBorder.all(color: Colors.white, width: 2),
+        border: BoxBorder.all(color: Colors.white, width: 3),
       ),
       child: FloatingActionButton.large(
         elevation: 0,
@@ -196,7 +198,11 @@ class _HomePageState extends State<HomePage> {
             height: 140,
             color: darkGreen,
             alignment: Alignment.center,
-            child: Image.asset("lib/images/wing.png", height: 40),
+            child: Image.asset(
+              "lib/images/wing.png",
+              height: double.maxFinite,
+              fit: BoxFit.cover,
+            ),
           ),
 
           /// 👤 USER INFO
@@ -325,14 +331,16 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildService {
     return Container(
       color: Color(0xFFFFFFFF),
-      height: 275,
+      height: 250,
       child: GridView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemCount: serviceItems.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: 3 / 2, //3 / //2.2,
+          // crossAxisSpacing: 20,
+          // mainAxisSpacing: 2,
+          childAspectRatio: 3 / 1.8,
         ),
         itemBuilder: (context, index) {
           ServiceItem item = serviceItems[index];
@@ -345,7 +353,7 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildPromoCard {
     return Container(
       color: AppColors.bgGrey,
-      padding: const EdgeInsets.only(top: 16, bottom: 8),
+      padding: const EdgeInsets.only(top: 14, bottom: 8),
       child: SizedBox(
         height: 135,
 
