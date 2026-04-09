@@ -331,14 +331,16 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildService {
     return Container(
       color: Color(0xFFFFFFFF),
-      height: 275,
+      height: 250,
       child: GridView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemCount: serviceItems.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: 3 / 2, //3 / //2.2,
+          // crossAxisSpacing: 20,
+          // mainAxisSpacing: 2,
+          childAspectRatio: 3 / 1.8,
         ),
         itemBuilder: (context, index) {
           ServiceItem item = serviceItems[index];
@@ -351,7 +353,7 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildPromoCard {
     return Container(
       color: AppColors.bgGrey,
-      padding: const EdgeInsets.only(top: 16, bottom: 8),
+      padding: const EdgeInsets.only(top: 14, bottom: 8),
       child: SizedBox(
         height: 135,
 

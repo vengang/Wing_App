@@ -22,12 +22,13 @@ class ServiceItembuild extends StatelessWidget {
             // service icon
             child: Image.asset(
               item.image,
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
+
               width: double.infinity,
             ),
           ),
           // title icon
-          Text(item.title, style: TextStyle(fontWeight: FontWeight.w500)),
+          Text(item.title, style: TextStyle(fontWeight: FontWeight.w400)),
         ],
       ),
     );
