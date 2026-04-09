@@ -76,6 +76,7 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildBottonNavigation {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
+
       currentIndex: _currentIndex,
       onTap: (index) {
         setState(() {
@@ -102,12 +103,13 @@ class _HomePageState extends State<HomePage> {
   // flaoting action button
   Widget get _buildFloatingActionButton {
     return Container(
-      margin: EdgeInsets.only(top: 25),
-      width: 65,
-      height: 65,
+      alignment: Alignment.center,
+      margin: EdgeInsets.only(top: 30),
+      width: 60,
+      height: 60,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: BoxBorder.all(color: Colors.white, width: 2),
+        border: BoxBorder.all(color: Colors.white, width: 3),
       ),
       child: FloatingActionButton.large(
         elevation: 0,
@@ -196,7 +198,11 @@ class _HomePageState extends State<HomePage> {
             height: 140,
             color: darkGreen,
             alignment: Alignment.center,
-            child: Image.asset("lib/images/wing.png", height: 40),
+            child: Image.asset(
+              "lib/images/wing.png",
+              height: double.maxFinite,
+              fit: BoxFit.cover,
+            ),
           ),
 
           /// 👤 USER INFO
