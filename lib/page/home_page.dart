@@ -51,6 +51,9 @@ class _HomePageState extends State<HomePage> {
   // body build
   Widget get _buildBody {
     return Container(
+      constraints: BoxConstraints(
+        minHeight: MediaQuery.of(context).size.height,
+      ),
       color: primaryGreen,
       child: SingleChildScrollView(
         child: Column(
@@ -405,7 +408,7 @@ class _HomePageState extends State<HomePage> {
       },
       options: CarouselOptions(
         scrollPhysics: BouncingScrollPhysics(),
-        height: 150,
+        height: 175,
         autoPlay: true,
       ),
     );

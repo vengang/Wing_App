@@ -10,7 +10,7 @@ class pro extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 20),
       decoration: BoxDecoration(
         color: Colors.amber,
         borderRadius: BorderRadius.all(Radius.circular(30)),
