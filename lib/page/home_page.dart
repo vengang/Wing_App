@@ -5,6 +5,7 @@ import 'package:wingbank/models/datapromotion.dart';
 import 'package:wingbank/models/icon.dart';
 import 'package:wingbank/models/promoCardItem.dart';
 import 'package:wingbank/models/serviceitem.dart';
+import 'package:wingbank/page/navigationPage/credit_card.dart';
 import 'package:wingbank/page/navigationPage/favorite.dart';
 import 'package:wingbank/page/navigationPage/help.dart';
 import 'package:wingbank/page/navigationPage/wallet.dart';
@@ -27,7 +28,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  bool _isLoadingHelp = false;
   bool isclick = false;
   int _currentIndex = 0;
   static const Color primaryGreen = Color(0xFFa9cb39);
@@ -39,9 +40,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: _buildAppBar,
+      appBar: _buildAppBarBtsNavigation,
       drawer: _buildDrawer,
-      body: _buildBody,
+      body: _btsNavigationBody,
       bottomNavigationBar: _buildBottonNavigation,
       floatingActionButton: _buildFloatingActionButton,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -56,6 +57,7 @@ class _HomePageState extends State<HomePage> {
       ),
       color: primaryGreen,
       child: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
         child: Column(
           children: [
             _buildNotificationBanner(),
@@ -69,22 +71,110 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget get btsNavigationBody {
+  Widget get _btsNavigationBody {
     return IndexedStack(
       index: _currentIndex,
-      children: [_buildBody, Favorite(), Wallet(), Help(), Card()],
+      children: [
+        _buildBody,
+        Favorite(),
+        Wallet(),
+        _isLoadingHelp ? Center(child: CircularProgressIndicator()) : Help(),
+        credit_card(),
+      ],
     );
+  }
+
+  // appbar + bts navigation
+  PreferredSizeWidget? get _buildAppBarBtsNavigation {
+    if (_currentIndex == 0) {
+      return AppBar(
+        backgroundColor: Color(0xFFa9cb39),
+        title: Image.asset(
+          'lib/images/wing.png',
+          width: 130,
+          height: 200,
+          fit: BoxFit.cover,
+        ),
+        actions: [
+          // wingpoint
+          GestureDetector(
+            child: Image.asset(
+              'lib/images/wingpoint.png',
+              width: 40,
+              height: 90,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(width: 10),
+          // khmerQr
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('khmerQr Clicked'),
+                    content: const Text('khmerQr was clicked'),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('OK'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            child: Image.asset(
+              'lib/images/khqr.png',
+              width: 40,
+              height: 90,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(width: 10),
+          GestureDetector(
+            child: Image.asset(
+              'lib/images/ringwing.png',
+              width: 30,
+              height: 80,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(width: 10),
+        ],
+      );
+    }
+    return null;
   }
 
   Widget get _buildBottonNavigation {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-
+      // showSelectedLabels: true,
+      // showUnselectedLabels: true,
       currentIndex: _currentIndex,
-      onTap: (index) {
-        setState(() {
-          _currentIndex = index;
-        });
+      onTap: (index) async {
+        if (index == 3) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => const Center(
+              child: CircularProgressIndicator(color: primaryGreen),
+            ),
+          );
+          await Future.delayed(Duration(seconds: 1));
+          Navigator.pop(context);
+          setState(() {
+            _currentIndex = index;
+          });
+        } else {
+          setState(() {
+            _currentIndex = index;
+          });
+        }
       },
       iconSize: 25,
       elevation: 8,
@@ -93,10 +183,7 @@ class _HomePageState extends State<HomePage> {
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
         BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favorites"),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.qr_code_scanner_outlined),
-          label: '',
-        ),
+        BottomNavigationBarItem(icon: Icon(null), label: ''),
         BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: 'Help'),
         BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: 'Card'),
       ],
@@ -107,7 +194,7 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildFloatingActionButton {
     return Container(
       alignment: Alignment.center,
-      margin: EdgeInsets.only(top: 30),
+      margin: EdgeInsets.only(top: 40),
       width: 60,
       height: 60,
       decoration: BoxDecoration(
@@ -125,68 +212,6 @@ class _HomePageState extends State<HomePage> {
         shape: CircleBorder(),
         child: Icon(Icons.qr_code_scanner_outlined, color: Colors.white),
       ),
-    );
-  }
-
-  AppBar get _buildAppBar {
-    return AppBar(
-      backgroundColor: Color(0xFFa9cb39),
-      title: Image.asset(
-        'lib/images/wing.png',
-        width: 130,
-        height: 200,
-        fit: BoxFit.cover,
-      ),
-      actions: [
-        // wingpoint
-        GestureDetector(
-          child: Image.asset(
-            'lib/images/wingpoint.png',
-            width: 40,
-            height: 90,
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(width: 10),
-        // khmerQr
-        GestureDetector(
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text('khmerQr Clicked'),
-                  content: const Text('khmerQr was clicked'),
-                  actions: <Widget>[
-                    TextButton(
-                      child: const Text('OK'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-          child: Image.asset(
-            'lib/images/khqr.png',
-            width: 40,
-            height: 90,
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(width: 10),
-        GestureDetector(
-          child: Image.asset(
-            'lib/images/ringwing.png',
-            width: 30,
-            height: 80,
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(width: 10),
-      ],
     );
   }
 
@@ -318,7 +343,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildNotificationBanner() {
     return Container(
-      height: 12,
+      height: 15,
       decoration: BoxDecoration(
         color: Colors.white,
 
@@ -341,7 +366,7 @@ class _HomePageState extends State<HomePage> {
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           // crossAxisSpacing: 20,
-          // mainAxisSpacing: 2,
+          mainAxisSpacing: 2,
           childAspectRatio: 3 / 1.8,
         ),
         itemBuilder: (context, index) {
@@ -355,7 +380,7 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildPromoCard {
     return Container(
       color: AppColors.bgGrey,
-      padding: const EdgeInsets.only(top: 18, bottom: 15),
+      padding: const EdgeInsets.only(top: 18, bottom: 15, left: 10, right: 10),
       child: SizedBox(
         height: 160,
         child: ListView.builder(
@@ -408,7 +433,9 @@ class _HomePageState extends State<HomePage> {
       },
       options: CarouselOptions(
         scrollPhysics: BouncingScrollPhysics(),
-        height: 175,
+        height: 180,
+        // enlargeCenterPage: true,
+        viewportFraction: 0.9,
         autoPlay: true,
       ),
     );

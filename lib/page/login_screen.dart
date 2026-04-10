@@ -52,9 +52,9 @@ class _LoginState extends State<Login> {
               width: 320,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.15),
+                color: Colors.white.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.white.withOpacity(0.3)),
+                border: Border.all(color: Colors.white.withValues(alpha: .3)),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black26,
@@ -154,23 +154,26 @@ class _LoginState extends State<Login> {
                           MaterialPageRoute(builder: (context) => HomePage()),
                         );
 
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text("Login Successfully"),
-                            backgroundColor: AppColors.primaryGreen,
-                            action: SnackBarAction(
-                              label: "DONE",
-                              onPressed: () {},
-                            ),
-                          ),
-                        );
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //     behavior: SnackBarBehavior.floating,
+                        //     margin: EdgeInsets.only(bottom: 1),
+                        //     content: Text("Login Successfully"),
+                        //     backgroundColor: AppColors.primaryGreen,
+                        //     action: SnackBarAction(
+                        //       label: "DONE",
+                        //       onPressed: () {},
+                        //     ),
+                        //   ),
+                        // );
                       },
                       borderRadius: BorderRadius.circular(12),
-                      child: Ink(
+                      child: Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [Colors.blueAccent, Colors.purpleAccent],
                           ),
+                          border: Border.all(color: Colors.white),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Center(
