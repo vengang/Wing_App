@@ -19,7 +19,7 @@ class Help extends StatelessWidget {
           ),
         ),
       ),
-      body: Center(child: Text('Help Page')),
+      body: Center(child: Text('Help Page'), ),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:wingbank/models/datapromotion.dart';
 import 'package:wingbank/models/icon.dart';
 import 'package:wingbank/models/promoCardItem.dart';
 import 'package:wingbank/models/serviceitem.dart';
+import 'package:wingbank/page/navigationPage/credit_card.dart';
 import 'package:wingbank/page/navigationPage/favorite.dart';
 import 'package:wingbank/page/navigationPage/help.dart';
 import 'package:wingbank/page/navigationPage/wallet.dart';
@@ -56,6 +57,7 @@ class _HomePageState extends State<HomePage> {
       ),
       color: primaryGreen,
       child: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
         child: Column(
           children: [
             _buildNotificationBanner(),
@@ -77,7 +79,7 @@ class _HomePageState extends State<HomePage> {
         Favorite(),
         Wallet(),
         _isLoadingHelp ? Center(child: CircularProgressIndicator()) : Help(),
-        Card(),
+        credit_card(),
       ],
     );
   }
@@ -151,6 +153,8 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildBottonNavigation {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
+      // showSelectedLabels: true,
+      // showUnselectedLabels: true,
       currentIndex: _currentIndex,
       onTap: (index) async {
         if (index == 3) {
@@ -339,7 +343,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildNotificationBanner() {
     return Container(
-      height: 12,
+      height: 15,
       decoration: BoxDecoration(
         color: Colors.white,
 
@@ -362,7 +366,7 @@ class _HomePageState extends State<HomePage> {
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           // crossAxisSpacing: 20,
-          // mainAxisSpacing: 2,
+          mainAxisSpacing: 2,
           childAspectRatio: 3 / 1.8,
         ),
         itemBuilder: (context, index) {
@@ -376,7 +380,7 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildPromoCard {
     return Container(
       color: AppColors.bgGrey,
-      padding: const EdgeInsets.only(top: 18, bottom: 15),
+      padding: const EdgeInsets.only(top: 18, bottom: 15, left: 10, right: 10),
       child: SizedBox(
         height: 160,
         child: ListView.builder(
@@ -429,7 +433,9 @@ class _HomePageState extends State<HomePage> {
       },
       options: CarouselOptions(
         scrollPhysics: BouncingScrollPhysics(),
-        height: 175,
+        height: 180,
+        // enlargeCenterPage: true,
+        viewportFraction: 0.9,
         autoPlay: true,
       ),
     );
