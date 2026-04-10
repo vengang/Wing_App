@@ -27,7 +27,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  bool _isLoadingHelp = false;
   bool isclick = false;
   int _currentIndex = 0;
   static const Color primaryGreen = Color(0xFFa9cb39);
@@ -39,9 +39,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: _buildAppBar,
+      appBar: _buildAppBarBtsNavigation,
       drawer: _buildDrawer,
-      body: _buildBody,
+      body: _btsNavigationBody,
       bottomNavigationBar: _buildBottonNavigation,
       floatingActionButton: _buildFloatingActionButton,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -69,22 +69,106 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget get btsNavigationBody {
+  Widget get _btsNavigationBody {
     return IndexedStack(
       index: _currentIndex,
-      children: [_buildBody, Favorite(), Wallet(), Help(), Card()],
+      children: [
+        _buildBody,
+        Favorite(),
+        Wallet(),
+        _isLoadingHelp ? Center(child: CircularProgressIndicator()) : Help(),
+        Card(),
+      ],
     );
+  }
+
+  // appbar + bts navigation
+  PreferredSizeWidget? get _buildAppBarBtsNavigation {
+    if (_currentIndex == 0) {
+      return AppBar(
+        backgroundColor: Color(0xFFa9cb39),
+        title: Image.asset(
+          'lib/images/wing.png',
+          width: 130,
+          height: 200,
+          fit: BoxFit.cover,
+        ),
+        actions: [
+          // wingpoint
+          GestureDetector(
+            child: Image.asset(
+              'lib/images/wingpoint.png',
+              width: 40,
+              height: 90,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(width: 10),
+          // khmerQr
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('khmerQr Clicked'),
+                    content: const Text('khmerQr was clicked'),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('OK'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            child: Image.asset(
+              'lib/images/khqr.png',
+              width: 40,
+              height: 90,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(width: 10),
+          GestureDetector(
+            child: Image.asset(
+              'lib/images/ringwing.png',
+              width: 30,
+              height: 80,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(width: 10),
+        ],
+      );
+    }
+    return null;
   }
 
   Widget get _buildBottonNavigation {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-
       currentIndex: _currentIndex,
-      onTap: (index) {
-        setState(() {
-          _currentIndex = index;
-        });
+      onTap: (index) async {
+        if (index == 3) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => const Center(child: CircularProgressIndicator()),
+          );
+          await Future.delayed(Duration(seconds: 1));
+          Navigator.pop(context);
+          setState(() {
+            _currentIndex = index;
+          });
+        } else {
+          setState(() {
+            _currentIndex = index;
+          });
+        }
       },
       iconSize: 25,
       elevation: 8,
@@ -125,68 +209,6 @@ class _HomePageState extends State<HomePage> {
         shape: CircleBorder(),
         child: Icon(Icons.qr_code_scanner_outlined, color: Colors.white),
       ),
-    );
-  }
-
-  AppBar get _buildAppBar {
-    return AppBar(
-      backgroundColor: Color(0xFFa9cb39),
-      title: Image.asset(
-        'lib/images/wing.png',
-        width: 130,
-        height: 200,
-        fit: BoxFit.cover,
-      ),
-      actions: [
-        // wingpoint
-        GestureDetector(
-          child: Image.asset(
-            'lib/images/wingpoint.png',
-            width: 40,
-            height: 90,
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(width: 10),
-        // khmerQr
-        GestureDetector(
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text('khmerQr Clicked'),
-                  content: const Text('khmerQr was clicked'),
-                  actions: <Widget>[
-                    TextButton(
-                      child: const Text('OK'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-          child: Image.asset(
-            'lib/images/khqr.png',
-            width: 40,
-            height: 90,
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(width: 10),
-        GestureDetector(
-          child: Image.asset(
-            'lib/images/ringwing.png',
-            width: 30,
-            height: 80,
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(width: 10),
-      ],
     );
   }
 
