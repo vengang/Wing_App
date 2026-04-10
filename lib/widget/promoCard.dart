@@ -18,7 +18,12 @@ class Promocard extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: item.gradient,
         ),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(15),
+          topLeft: Radius.circular(15),
+          bottomLeft: Radius.circular(15),
+          bottomRight: Radius.circular(35),
+        ),
         boxShadow: [
           BoxShadow(
             color: item.gradient.last.withValues(alpha: 0.4),

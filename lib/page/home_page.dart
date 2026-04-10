@@ -118,7 +118,6 @@ class _HomePageState extends State<HomePage> {
             isclick = !isclick;
           });
         },
-
         backgroundColor: Colors.blue,
         shape: CircleBorder(),
         child: Icon(Icons.qr_code_scanner_outlined, color: Colors.white),
@@ -353,10 +352,9 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildPromoCard {
     return Container(
       color: AppColors.bgGrey,
-      padding: const EdgeInsets.only(top: 14, bottom: 8),
+      padding: const EdgeInsets.only(top: 18, bottom: 15),
       child: SizedBox(
-        height: 135,
-
+        height: 160,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
@@ -407,7 +405,7 @@ class _HomePageState extends State<HomePage> {
       },
       options: CarouselOptions(
         scrollPhysics: BouncingScrollPhysics(),
-        height: 130,
+        height: 150,
         autoPlay: true,
       ),
     );
