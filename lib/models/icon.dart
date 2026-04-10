@@ -10,3 +10,10 @@ class AppIcons {
   static const IconData terms = Icons.assignment_outlined;
   static const IconData settings = Icons.settings_outlined;
 }
+// contact page about
+class ContactItem {
+  final String title;
+  final IconData icon;
+
+  ContactItem(this.title, this.icon);
+}
