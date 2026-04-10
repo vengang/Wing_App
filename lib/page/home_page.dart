@@ -157,7 +157,9 @@ class _HomePageState extends State<HomePage> {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (_) => const Center(child: CircularProgressIndicator()),
+            builder: (_) => const Center(
+              child: CircularProgressIndicator(color: primaryGreen),
+            ),
           );
           await Future.delayed(Duration(seconds: 1));
           Navigator.pop(context);
@@ -177,10 +179,7 @@ class _HomePageState extends State<HomePage> {
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
         BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favorites"),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.qr_code_scanner_outlined),
-          label: '',
-        ),
+        BottomNavigationBarItem(icon: Icon(null), label: ''),
         BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: 'Help'),
         BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: 'Card'),
       ],
@@ -191,7 +190,7 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildFloatingActionButton {
     return Container(
       alignment: Alignment.center,
-      margin: EdgeInsets.only(top: 30),
+      margin: EdgeInsets.only(top: 40),
       width: 60,
       height: 60,
       decoration: BoxDecoration(

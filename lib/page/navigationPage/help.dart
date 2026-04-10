@@ -10,7 +10,14 @@ class Help extends StatelessWidget {
         leading: Icon(null),
         backgroundColor: Color(0xFFa9cb39),
         centerTitle: true,
-        title: Text('Help'),
+        title: Text(
+          'Help',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Center(child: Text('Help Page')),
     );
