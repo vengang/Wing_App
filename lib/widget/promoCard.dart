@@ -89,8 +89,8 @@ class Promocard extends StatelessWidget {
                 alignment: Alignment.bottomRight,
                 child: Image.asset(
                   item.icon,
-                  width: double.infinity,
-                  height: 50,
+                  // width: double.maxFinite,
+                  height: 105,
                   fit: BoxFit.cover,
                 ),
               ),
