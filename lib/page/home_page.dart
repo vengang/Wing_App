@@ -8,6 +8,7 @@ import 'package:wingbank/models/serviceitem.dart';
 import 'package:wingbank/page/navigationPage/credit_card.dart';
 import 'package:wingbank/page/navigationPage/favorite.dart';
 import 'package:wingbank/page/navigationPage/help.dart';
+import 'package:wingbank/page/navigationPage/scanbanner.dart';
 import 'package:wingbank/page/navigationPage/wallet.dart';
 import 'package:wingbank/widget/aboutPage.dart';
 import 'package:wingbank/widget/locatorPage.dart';
@@ -17,6 +18,7 @@ import 'package:wingbank/widget/referpage.dart';
 import 'package:wingbank/widget/serviceitembuild.dart';
 import 'package:wingbank/widget/setting.dart';
 import 'package:wingbank/widget/termPage.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   @override
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _isLoadingHelp = false;
-  bool isclick = false;
+  dynamic isclick = false;
   int _currentIndex = 0;
   static const Color primaryGreen = Color(0xFFa9cb39);
   static const Color darkGreen = Color(0xFF93df41);
@@ -214,7 +216,9 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         onPressed: () {
           setState(() {
-            isclick = !isclick;
+            Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (context) => Scanbanner()));
           });
         },
         backgroundColor: Colors.blue,
