@@ -113,7 +113,6 @@ class Aboutpage extends StatelessWidget {
           ),
           const SizedBox(height: 10),
 
-          /// 🔥 ListView بدل repeating code
           ListView.builder(
             itemCount: items.length,
             shrinkWrap: true,

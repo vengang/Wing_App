@@ -14,9 +14,9 @@ class LeanMore {
 }
 
 final List<LeanMore> pic = [
-  LeanMore(image: "lib/images/learnmore/web.png", title: "Website"),
-  LeanMore(image: "lib/images/learnmore/facebook.png", title: "Facebook"),
-  LeanMore(image: "lib/images/learnmore/instagram.png", title: "Instagram"),
-  LeanMore(image: "lib/images/learnmore/tiktok.png", title: "Tik Tok"),
-  LeanMore(image: "lib/images/learnmore/youtube.png", title: "Youtube"),
+  LeanMore(image: "lib/images/web.png", title: "Website"),
+  LeanMore(image: "lib/images/facebook.png", title: "Facebook"),
+  LeanMore(image: "lib/images/instagram.png", title: "Instagram"),
+  LeanMore(image: "lib/images/tiktok.png", title: "Tik Tok"),
+  LeanMore(image: "lib/images/youtube.png", title: "Youtube"),
 ];

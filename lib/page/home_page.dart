@@ -51,21 +51,23 @@ class _HomePageState extends State<HomePage> {
 
   // body build
   Widget get _buildBody {
-    return Container(
-      constraints: BoxConstraints(
-        minHeight: MediaQuery.of(context).size.height,
-      ),
-      color: primaryGreen,
-      child: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            _buildNotificationBanner(),
-            _buildService,
-            _buildPromoCard,
-            _buildPromotions,
-            Container(color: Colors.white, child: _buildPromotionsBody),
-          ],
+    return SafeArea(
+      child: Container(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height,
+        ),
+        color: primaryGreen,
+        child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              _buildNotificationBanner(),
+              _buildService,
+              _buildPromoCard,
+              _buildPromotions,
+              Container(color: Colors.white, child: _buildPromotionsBody),
+            ],
+          ),
         ),
       ),
     );
@@ -78,7 +80,9 @@ class _HomePageState extends State<HomePage> {
         _buildBody,
         Favorite(),
         Wallet(),
-        _isLoadingHelp ? Center(child: CircularProgressIndicator()) : Help(),
+        _isLoadingHelp
+            ? Center(child: CircularProgressIndicator())
+            : Container(),
         credit_card(),
       ],
     );
@@ -158,15 +162,20 @@ class _HomePageState extends State<HomePage> {
       currentIndex: _currentIndex,
       onTap: (index) async {
         if (index == 3) {
+          //show loading
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (_) => const Center(
-              child: CircularProgressIndicator(color: primaryGreen),
-            ),
+            builder: (_) =>
+                Center(child: CircularProgressIndicator(color: primaryGreen)),
           );
+          // wait
           await Future.delayed(Duration(seconds: 1));
           Navigator.pop(context);
+          // push to help page
+          Navigator.of(
+            context,
+          ).push(MaterialPageRoute(builder: (context) => Help()));
           setState(() {
             _currentIndex = index;
           });
