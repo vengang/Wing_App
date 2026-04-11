@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:wingbank/controller/auth_controller.dart';
 import 'package:wingbank/models/IconPicture.dart';
 import 'package:wingbank/models/appcolor.dart';
 import 'package:wingbank/page/home_page.dart';
@@ -16,7 +19,7 @@ class _LoginState extends State<Login> {
   final _passCtr = TextEditingController();
 
   bool _hidePassword = true;
-
+  final AuthController authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,11 +151,18 @@ class _LoginState extends State<Login> {
                     width: double.infinity,
                     height: 50,
                     child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
+                      onTap: () async {
+                        bool success = await authController.login(
+                          _emailCtr.text.trim(),
+                          _passCtr.text.trim(),
                         );
+
+                        if (success) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                          );
+                        }
 
                         // ScaffoldMessenger.of(context).showSnackBar(
                         //   SnackBar(
