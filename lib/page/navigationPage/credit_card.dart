@@ -16,7 +16,7 @@ class _credit_cardState extends State<credit_card> {
         backgroundColor: Color(0xFFa9cb39),
         centerTitle: true,
         title: Text(
-          'credit_card',
+          'Manage Cards',
           style: TextStyle(
             color: Colors.white,
             fontSize: 20,
@@ -26,26 +26,92 @@ class _credit_cardState extends State<credit_card> {
       ),
       body: Container(
         color: Color(0xFFa9cb39),
-        height: 664,
         child: Stack(
+          alignment: Alignment.topCenter,
           children: [
+            //bg layout
             Column(
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  color: Colors.amber,
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.7,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.withValues(alpha: .1),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
+                SizedBox(height: 70),
+
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
                     ),
                   ),
                 ),
               ],
+            ),
+            // card container
+            Positioned(
+              top: 15,
+              child: Container(
+                width: 300,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Colors.blue[700],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+            //add card
+            Positioned(
+              top: 85,
+              child: OutlinedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  iconSize: 50,
+                  shape: CircleBorder(),
+                  elevation: 0,
+                  side: BorderSide(color: Colors.white, width: 4),
+                  foregroundColor: Colors.blue,
+                  iconColor: Colors.white,
+                ),
+                child: Icon(Icons.add),
+              ),
+            ),
+            // card text
+            Positioned(
+              top: 150,
+              child: Text(
+                'New Card',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            // center text
+            Positioned(
+              top: 380,
+              child: Column(
+                children: [
+                  Text(
+                    'Add Card',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'To add link a new card, please tap on',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey.withValues(alpha: 1),
+                    ),
+                  ),
+                  Text(
+                    '(+) button above.',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey.withValues(alpha: 1),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
