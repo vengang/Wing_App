@@ -384,7 +384,15 @@ class _HomePageState extends State<HomePage> {
         ),
         itemBuilder: (context, index) {
           ServiceItem item = serviceItems[index];
-          return ServiceItembuild(item: item);
+          return GestureDetector(
+            onTap: () {
+              // push each page
+              Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (_) => item.page()));
+            },
+            child: ServiceItembuild(item: item),
+          );
         },
       ),
     );
