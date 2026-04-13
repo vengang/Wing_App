@@ -10,27 +10,20 @@ class ServiceItembuild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Navigator.of(
-        //   context,
-        // ).push(MaterialPageRoute(builder: (context) => Testing()));
-      },
-      child: Column(
-        children: [
-          Expanded(
-            // service icon
-            child: Image.asset(
-              item.image,
-              fit: BoxFit.contain,
+    return Column(
+      children: [
+        Expanded(
+          // service icon
+          child: Image.asset(
+            item.image,
+            fit: BoxFit.contain,
 
-              width: double.infinity,
-            ),
+            width: double.infinity,
           ),
-          // title icon
-          Text(item.title, style: TextStyle(fontWeight: FontWeight.w400)),
-        ],
-      ),
+        ),
+        // title icon
+        Text(item.title, style: TextStyle(fontWeight: FontWeight.w400)),
+      ],
     );
   }
 }
