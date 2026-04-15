@@ -10,7 +10,7 @@ class Myapp extends StatelessWidget {
   Widget build(BuildContext context) {
     
 
-   return GetMaterialApp(   debugShowCheckedModeBanner: false, home: SplashScreen());
-    // return MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
+  //  return GetMaterialApp(   debugShowCheckedModeBanner: false, home: SplashScreen());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
   }
 }
