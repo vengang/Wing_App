@@ -17,21 +17,21 @@ class Custombts extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 70,
-        height: 40,
-        margin: const EdgeInsets.symmetric(horizontal: 5),
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        // width: double.infinity,
+        height: 35,
+        margin: const EdgeInsets.symmetric(horizontal: 4),
         decoration: BoxDecoration(
           color: isSelected ? Colors.blue : Colors.white,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.blue),
         ),
         child: Center(
           child: Text(
             text,
             style: TextStyle(
-              color: isSelected ? Colors.white : Colors.blue,
+              color: isSelected ? Colors.white : Colors.black,
               fontWeight: FontWeight.bold,
-              fontSize: 10,
+              fontSize: 13,
             ),
           ),
         ),
