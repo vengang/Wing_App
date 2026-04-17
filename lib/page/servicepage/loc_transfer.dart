@@ -137,7 +137,7 @@ class TranferOption extends StatelessWidget {
                 //arrow
                 Icon(
                   arrowStyle == ArrowStyle.single
-                      ? Icons.arrow_back_sharp
+                      ? Icons.compare_arrows_outlined
                       : Icons.arrow_forward,
                   color: Color(0xFF1E88E5),
                   size: 35,
