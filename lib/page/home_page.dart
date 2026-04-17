@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wingbank/models/appcolor.dart';
 import 'package:wingbank/models/datapromotion.dart';
 import 'package:wingbank/models/icon.dart';
@@ -151,6 +152,8 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(width: 10),
         ],
+        // drawer icons color
+        iconTheme: IconThemeData(color: Colors.white),
       );
     }
     return null;
