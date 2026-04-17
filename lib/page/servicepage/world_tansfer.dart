@@ -8,8 +8,215 @@ class WorldTansfer extends StatefulWidget {
 }
 
 class _WorldTansferState extends State<WorldTansfer> {
+  int selectedValue = 1;
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      backgroundColor: Color(0xFFa9cb39),
+      appBar: AppBar(
+        leading: InkWell(
+          onTap: () => Navigator.pop(context),
+          child: Icon(Icons.arrow_back_ios, color: Colors.white),
+        ),
+        centerTitle: true,
+        title: Text('Wing Bank To World'),
+      ),
+
+      body: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height * .9,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 0,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 250,
+              // card control size
+              child: Card(
+                color: Colors.white,
+                margin: EdgeInsets.only(top: 25, left: 20, right: 20),
+                child: Padding(
+                  padding: EdgeInsets.all(14),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'My Account',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 10),
+                      _buildHeader(),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return GestureDetector(
+      onTap: _buildBtsSheet,
+      child: SizedBox(
+        width: double.infinity,
+        height: 70,
+        child: Card(
+          color: Colors.grey[300],
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '093587414',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
+                ),
+                Icon(Icons.keyboard_arrow_down, size: 35, color: Colors.grey),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Bottom Sheet
+  void _buildBtsSheet() {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return SizedBox(
+          height: 250,
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: Column(
+              children: [
+                Text(
+                  'Choose Account',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+
+                SizedBox(height: 15),
+
+                Card(
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 4),
+
+                      // leading of list
+                      leading: Padding(
+                        padding: EdgeInsets.only(left: 4),
+                        child: Radio(
+                          value: 1,
+                          groupValue: selectedValue,
+                          activeColor: Colors.blue,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedValue = value!;
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+
+                      title: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Current Account',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+
+                          SizedBox(width: 6),
+
+                          Flexible(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.blueAccent,
+                              ),
+                              child: Text(
+                                'Default USD',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      subtitle: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // acc num
+                          Padding(
+                            padding: EdgeInsets.only(top: 8),
+                            child: Text(
+                              '093 587 414 (USD)',
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ),
+                          // amout of acc
+                          Padding(
+                            padding: EdgeInsets.only(top: 8),
+                            child: Text(
+                              '\$0.00',
+                              style: TextStyle(
+                                fontSize: 19,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      onTap: () {
+                        setState(() {
+                          selectedValue = 1;
+                        });
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }
