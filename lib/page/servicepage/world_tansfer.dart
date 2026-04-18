@@ -1,4 +1,6 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class WorldTansfer extends StatefulWidget {
   const WorldTansfer({super.key});
@@ -9,7 +11,7 @@ class WorldTansfer extends StatefulWidget {
 
 class _WorldTansferState extends State<WorldTansfer> {
   int selectedValue = 1;
-
+  Country? _selectedCountry;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,11 +38,12 @@ class _WorldTansferState extends State<WorldTansfer> {
               ),
             ),
           ),
+          // midle text
           Positioned(
             top: 0,
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: 250,
+              height: 260,
               // card control size
               child: Card(
                 color: Colors.white,
@@ -50,14 +53,43 @@ class _WorldTansferState extends State<WorldTansfer> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'My Account',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                      Text('My Account'),
                       SizedBox(height: 10),
                       _buildHeader(),
+                      SizedBox(height: 57),
+                      footerCard(),
                     ],
                   ),
+                ),
+              ),
+            ),
+          ),
+          // the middless text
+          Positioned(
+            top: 140,
+            child: Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(color: Color(0xFFF6F7F9)),
+              width: MediaQuery.of(context).size.width,
+              child: Text('TO COUNTRY'),
+            ),
+          ),
+          // send bts
+          Positioned(
+            top: 280,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF007AFF),
+                padding: EdgeInsets.symmetric(horizontal: 60, vertical: 12),
+              ),
+              onPressed: () {},
+              child: Text(
+                'SEND',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -72,11 +104,11 @@ class _WorldTansferState extends State<WorldTansfer> {
       onTap: _buildBtsSheet,
       child: SizedBox(
         width: double.infinity,
-        height: 70,
+        height: 60,
         child: Card(
-          color: Colors.grey[300],
+          color: Color(0xFFF0F1F6),
           child: Padding(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.symmetric(vertical: 9, horizontal: 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -89,6 +121,72 @@ class _WorldTansferState extends State<WorldTansfer> {
                   ),
                 ),
                 Icon(Icons.keyboard_arrow_down, size: 35, color: Colors.grey),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget footerCard() {
+    return GestureDetector(
+      onTap: () {
+        showCountryPicker(
+          context: context,
+          showPhoneCode: false,
+          countryListTheme: CountryListThemeData(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15.0),
+              topRight: Radius.circular(15.0),
+            ),
+            inputDecoration: InputDecoration(
+              labelText: 'Search',
+              prefixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide(
+                  color: const Color(0xFF8C98A8).withValues(alpha: .2),
+                ),
+              ),
+            ),
+          ),
+          onSelect: (Country country) {
+            setState(() {
+              _selectedCountry = country;
+            });
+          },
+        );
+      },
+      child: SizedBox(
+        width: double.infinity,
+        height: 60,
+        child: Card(
+          color: Color(0xFFF0F1F6),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 9, horizontal: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _selectedCountry != null
+                    ? Text(
+                        _selectedCountry!.flagEmoji,
+                        style: TextStyle(fontSize: 25),
+                      )
+                    : Icon(Icons.public, color: Color(0xFF007AFF), size: 25),
+                // name of country
+                _selectedCountry != null
+                    ? Text(
+                        _selectedCountry!.name,
+                        style: TextStyle(fontSize: 20),
+                      )
+                    : Text('Select Country', style: TextStyle(fontSize: 18)),
+                SizedBox(width: 075),
+                Icon(
+                  Icons.border_color_rounded,
+                  size: 25,
+                  color: Color(0xFF007AFF),
+                ),
               ],
             ),
           ),
