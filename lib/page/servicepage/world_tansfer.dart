@@ -1,5 +1,6 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class WorldTansfer extends StatefulWidget {
   const WorldTansfer({super.key});
@@ -10,7 +11,7 @@ class WorldTansfer extends StatefulWidget {
 
 class _WorldTansferState extends State<WorldTansfer> {
   int selectedValue = 1;
-
+  Country? _selectedCountry;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,6 +75,25 @@ class _WorldTansferState extends State<WorldTansfer> {
               child: Text('TO COUNTRY'),
             ),
           ),
+          // send bts
+          Positioned(
+            top: 280,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF007AFF),
+                padding: EdgeInsets.symmetric(horizontal: 60, vertical: 12),
+              ),
+              onPressed: () {},
+              child: Text(
+                'SEND',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -131,7 +151,11 @@ class _WorldTansferState extends State<WorldTansfer> {
               ),
             ),
           ),
-          onSelect: (Country country) {},
+          onSelect: (Country country) {
+            setState(() {
+              _selectedCountry = country;
+            });
+          },
         );
       },
       child: SizedBox(
@@ -144,10 +168,25 @@ class _WorldTansferState extends State<WorldTansfer> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(Icons.public, color: Color(0xFF007AFF), size: 35),
-                Text('Select Country', style: TextStyle(fontSize: 18)),
-                SizedBox(width: 65),
-                Icon(Icons.keyboard_arrow_down, size: 35, color: Colors.grey),
+                _selectedCountry != null
+                    ? Text(
+                        _selectedCountry!.flagEmoji,
+                        style: TextStyle(fontSize: 25),
+                      )
+                    : Icon(Icons.public, color: Color(0xFF007AFF), size: 25),
+                // name of country
+                _selectedCountry != null
+                    ? Text(
+                        _selectedCountry!.name,
+                        style: TextStyle(fontSize: 20),
+                      )
+                    : Text('Select Country', style: TextStyle(fontSize: 18)),
+                SizedBox(width: 075),
+                Icon(
+                  Icons.border_color_rounded,
+                  size: 25,
+                  color: Color(0xFF007AFF),
+                ),
               ],
             ),
           ),
