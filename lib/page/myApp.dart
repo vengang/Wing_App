@@ -32,7 +32,7 @@ class Myapp extends StatelessWidget {
   }
 }
 
-//custom transition
+// custom transition
 class _RightToLeftPageTransition extends PageTransitionsBuilder {
   @override
   Widget buildTransitions<T>(
