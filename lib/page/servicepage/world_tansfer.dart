@@ -136,6 +136,7 @@ class _WorldTansferState extends State<WorldTansfer> {
           context: context,
           showPhoneCode: false,
           countryListTheme: CountryListThemeData(
+            bottomSheetHeight: 760,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(15.0),
               topRight: Radius.circular(15.0),

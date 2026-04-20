@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey, 
+      key: _scaffoldKey,
       appBar: _buildAppBarBtsNavigation,
       drawer: _buildDrawer,
       body: _btsNavigationBody,

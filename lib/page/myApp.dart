@@ -32,7 +32,7 @@ class Myapp extends StatelessWidget {
   }
 }
 
-//custom transition
+// custom transition
 class _RightToLeftPageTransition extends PageTransitionsBuilder {
   @override
   Widget buildTransitions<T>(
@@ -42,10 +42,10 @@ class _RightToLeftPageTransition extends PageTransitionsBuilder {
     Animation<double> secondaryAnimation,
     Widget child,
   ) {
-    const begin = Offset(1.0, 0.0); // right
+    const begin = Offset(1.0, 0.0);
     const end = Offset.zero;
 
-    final tween = Tween(
+    final tween = Tween<Offset>(
       begin: begin,
       end: end,
     ).chain(CurveTween(curve: Curves.easeInOut));
