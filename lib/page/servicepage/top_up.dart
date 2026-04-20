@@ -217,6 +217,8 @@ class _TopUpState extends State<TopUp> {
         width: double.infinity,
         child: Card(
           color: Color(0xFFF0F1F6),
+          shadowColor: Colors.white,
+          elevation: .2,
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 9, horizontal: 12),
             child: Row(
@@ -247,6 +249,9 @@ class _TopUpState extends State<TopUp> {
         width: double.infinity,
         height: 60,
         child: Card(
+          color: Color(0xFFF0F1F6),
+          shadowColor: Colors.white,
+          elevation: .2,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),
             child: TextField(
