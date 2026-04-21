@@ -56,7 +56,15 @@ class _WorldTansferState extends State<WorldTansfer> {
                       Text('My Account'),
                       SizedBox(height: 10),
                       _buildHeader(),
-                      SizedBox(height: 57),
+                      SizedBox(height: 10),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(color: Color(0xFFF6F7F9)),
+                        width: MediaQuery.of(context).size.width,
+                        child: Text('TO COUNTRY'),
+                      ),
+                      SizedBox(height: 10),
                       footerCard(),
                     ],
                   ),
@@ -64,18 +72,9 @@ class _WorldTansferState extends State<WorldTansfer> {
               ),
             ),
           ),
-          // the middless text
-          Positioned(
-            top: 140,
-            child: Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(color: Color(0xFFF6F7F9)),
-              width: MediaQuery.of(context).size.width,
-              child: Text('TO COUNTRY'),
-            ),
-          ),
-          // send bts
+          
+
+       
           Positioned(
             top: 280,
             child: ElevatedButton(

@@ -97,6 +97,22 @@ class _NewAccountState extends State<NewAccount> {
           Colors.orange,
         ),
         SizedBox(height: 8),
+
+        Card(
+          color: Colors.white,
+          shadowColor: Colors.white,
+          elevation: .8,
+          child: ListTile(
+            trailing: Icon(
+              Icons.arrow_forward_ios_outlined,
+              color: Color(0xFF979CA8),
+            ),
+            title: Text(
+              "Interest Rate Calculator",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+          ),
+        ),
       ],
     );
   }
