@@ -10,6 +10,7 @@ class AppIcons {
   static const IconData terms = Icons.assignment_outlined;
   static const IconData settings = Icons.settings_outlined;
 }
+
 // contact page about
 class ContactItem {
   final String title;
@@ -17,3 +18,22 @@ class ContactItem {
 
   ContactItem(this.title, this.icon);
 }
+
+class BillIcon {
+  final String name;
+  final IconData icon;
+
+  BillIcon({required this.name, required this.icon});
+}
+
+final List<BillIcon> billIcons = [
+  BillIcon(name: "Utilities", icon: Icons.electrical_services),
+  BillIcon(name: "Finance", icon: Icons.account_balance),
+  BillIcon(name: "Insurance", icon: Icons.security),
+  BillIcon(name: "Internet and TV", icon: Icons.tv),
+  BillIcon(name: "School", icon: Icons.school),
+  BillIcon(name: "SME Business Payment", icon: Icons.business_center),
+  BillIcon(name: "Donation & Charity", icon: Icons.volunteer_activism),
+  BillIcon(name: "Postpaid", icon: Icons.phone),
+  BillIcon(name: "Others", icon: Icons.more_horiz),
+];
