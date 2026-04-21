@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wingbank/models/custombts.dart';
+import 'dart:math';
 
 class CurrentAccount extends StatefulWidget {
   const CurrentAccount({super.key});
@@ -46,12 +47,37 @@ class _CurrentAccountState extends State<CurrentAccount> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  width: 160,
-                  height: 70,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white),
-                    shape: BoxShape.circle,
+                SizedBox(
+                  width: 170,
+                  height: 170,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CustomPaint(
+                        size: Size(170, 170),
+                        painter: RealHalfCirclePainter(0.9),
+                      ),
+
+                      // inner circle
+                      Container(
+                        width: 110,
+                        height: 110,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          shape: BoxShape.circle,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("1", style: TextStyle(fontSize: 20)),
+                            Text(
+                              "Account",
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -255,4 +281,57 @@ class _CurrentAccountState extends State<CurrentAccount> {
       ),
     );
   }
+}
+
+class RealHalfCirclePainter extends CustomPainter {
+  final double progress;
+
+  RealHalfCirclePainter(this.progress);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const strokeWidth = 32.0;
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = (size.width / 2) - strokeWidth / 2;
+
+    // How wide the "gap" is at the bottom (in radians).
+    // pi * 0.35 ≈ 63° gap — adjust to taste.
+    const gapHalf = pi * 0.3;
+    const startAngle = pi / 2 + gapHalf; // bottom-left tip
+    const sweepTotal = (2 * pi) - (gapHalf * 2); // full arc minus gap
+
+    // 1. Background track (faint orange)
+    final bgPaint = Paint()
+      ..color = const Color(0xFFFF9800)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap.round;
+
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      startAngle,
+      sweepTotal,
+      false,
+      bgPaint,
+    );
+
+    // 2. Orange progress arc
+    final progressPaint = Paint()
+      ..color = const Color(0xFFFF9800)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap.round;
+
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      startAngle,
+      sweepTotal * progress,
+      false,
+      progressPaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant RealHalfCirclePainter oldDelegate) =>
+      oldDelegate.progress != progress;
 }
