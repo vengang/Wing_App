@@ -1,5 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+Widget wingIcon() => SizedBox(
+  width: 28,
+  height: 28,
+  child: Image.asset('lib/images/wing_icon.png', fit: BoxFit.contain),
+);
+
+class TransferOption {
+  final String label;
+  final Widget fromIcon;
+  final Widget toIcon;
+  final bool isBidirectional;
+
+  const TransferOption({
+    required this.label,
+    required this.fromIcon,
+    required this.toIcon,
+    this.isBidirectional = false,
+  });
+}
+
+List<TransferOption> transferOptions = [
+  TransferOption(
+    label: 'Transfer to Own Account',
+    fromIcon: const Icon(Icons.person, color: Color(0xFF1A6FD4), size: 28),
+    toIcon: const Icon(Icons.person, color: Color(0xFF1A6FD4), size: 28),
+  ),
+  TransferOption(
+    label: 'Wing Bank to Wing Bank',
+    fromIcon: wingIcon(),
+    toIcon: wingIcon(),
+  ),
+  TransferOption(
+    label: 'Wing Bank to Other Bank',
+    fromIcon: wingIcon(),
+    toIcon: const Icon(
+      Icons.account_balance,
+      color: Color(0xFF1A6FD4),
+      size: 28,
+    ),
+  ),
+  TransferOption(
+    label: 'Wing Wei Luy',
+    fromIcon: wingIcon(),
+    toIcon: const Icon(Icons.smartphone, color: Color(0xFF1A6FD4), size: 28),
+  ),
+  TransferOption(
+    label: 'Trading Account',
+    fromIcon: wingIcon(),
+    toIcon: const Icon(
+      Icons.candlestick_chart,
+      color: Color(0xFF1A6FD4),
+      size: 28,
+    ),
+    isBidirectional: true,
+  ),
+];
 
 class LocTransfer extends StatefulWidget {
   const LocTransfer({super.key});
@@ -12,155 +68,121 @@ class _LocTransferState extends State<LocTransfer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFa9cb39),
+      backgroundColor: const Color(0xFFa9cb39),
       appBar: AppBar(
         leading: InkWell(
           onTap: () => Navigator.pop(context),
-          child: Icon(Icons.arrow_back_ios, color: Colors.white),
+          child: const Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
         centerTitle: true,
-        title: Text('Local Transfer', style: TextStyle(color: Colors.white)),
-        backgroundColor: Color(0xFFa9cb39),
+        title: const Text('Local Transfer'),
       ),
-      body: Column(children: [_buildHeader(), _buildBody()]),
+      body: Stack(children: [_buildheader(), _buildBody()]),
     );
   }
 
-  Widget _buildHeader() {
-    return Container(
-      height: 240,
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(color: Color(0xFFa9cb39)),
-
-      child: Row(
-        children: [
-          Expanded(
-            child: Image.asset(
-              'lib/images/locTransferimg.png',
-              fit: BoxFit.cover,
-              filterQuality: FilterQuality.high,
+  Widget _buildheader() {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(30),
+          width: double.infinity,
+          height: 200,
+          decoration: const BoxDecoration(
+            color: Color(0xFFD1DDAD),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(18),
+              topRight: Radius.circular(18),
             ),
           ),
-        ],
-      ),
+          child: Image.asset('lib/images/locTransferimg.png'),
+        ),
+      ],
     );
   }
 
   Widget _buildBody() {
-    return Container(
-      padding: EdgeInsets.all(8),
-      height: 509,
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+    return Positioned(
+      top: 180,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Color(0xFFF2F2F2),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
-      ),
-      child: Padding(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: 10),
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TranferOption(
-              label: 'Tranfer To Own Account',
-              leftIcon: Icons.account_circle_rounded,
-              rightIcon: Icons.account_circle_rounded,
-              arrowStyle: ArrowStyle.double,
-            ),
-            TranferOption(
-              label: 'Wing Bank to Wing Bank',
-              leftIcon: Icons.flight,
-              rightIcon: Icons.flight,
-              arrowStyle: ArrowStyle.double,
-            ),
-            TranferOption(
-              label: 'Wing Bank to Other Bank',
-              leftIcon: Icons.flight,
-              rightIcon: Icons.account_balance,
-              arrowStyle: ArrowStyle.double,
-            ),
-            TranferOption(
-              label: 'Wing Wei Luy',
-              leftIcon: Icons.flight,
-              rightIcon: Icons.smartphone,
-              arrowStyle: ArrowStyle.double,
-            ),
-            TranferOption(
-              label: 'Trading Account',
-              leftIcon: Icons.flight,
-              rightIcon: Icons.candlestick_chart,
-              arrowStyle: ArrowStyle.single,
-            ),
-          ],
+        child: ListView.separated(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          itemCount: transferOptions.length,
+          separatorBuilder: (_, __) => const SizedBox(height: 12),
+          itemBuilder: (context, index) {
+            return _TransferTile(option: transferOptions[index]);
+          },
         ),
       ),
     );
   }
 }
 
-// local tranfers option
-enum ArrowStyle { single, double }
+class _TransferTile extends StatefulWidget {
+  final TransferOption option;
+  const _TransferTile({required this.option});
 
-class TranferOption extends StatelessWidget {
-  final String label;
-  final IconData leftIcon;
-  final IconData rightIcon;
-  final ArrowStyle arrowStyle;
+  @override
+  State<_TransferTile> createState() => _TransferTileState();
+}
 
-  const TranferOption({
-    super.key,
-    required this.label,
-    required this.leftIcon,
-    required this.rightIcon,
-    required this.arrowStyle,
-  });
+class _TransferTileState extends State<_TransferTile> {
+  bool _pressed = false;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        overlayColor: MaterialStateProperty.all(Colors.transparent),
-        onTap: () {},
-        child: Card(
-          margin: EdgeInsets.only(top: 15),
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-            child: Row(
-              children: [
-                //for left icon
-                FaIcon(leftIcon, color: Color(0xFF1E88E5), size: 35),
-
-                SizedBox(width: 5),
-
-                //arrow
-                Icon(
-                  arrowStyle == ArrowStyle.single
-                      ? Icons.compare_arrows_outlined
-                      : Icons.arrow_forward,
-                  color: Color(0xFF1E88E5),
-                  size: 35,
-                ),
-
-                SizedBox(width: 5),
-
-                // right icon
-                Icon(rightIcon, color: Color(0xFF1E88E5), size: 35),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    label,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF1A1A1A),
-                    ),
-                  ),
-                ),
-              ],
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _pressed = true),
+      onTapUp: (_) => setState(() => _pressed = false),
+      onTapCancel: () => setState(() => _pressed = false),
+      onTap: () {},
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 120),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        decoration: BoxDecoration(
+          color: _pressed ? const Color(0xFFEAF4FF) : Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(_pressed ? 0.04 : 0.07),
+              blurRadius: _pressed ? 4 : 8,
+              offset: const Offset(0, 2),
             ),
-          ),
+          ],
+        ),
+        child: Row(
+          children: [
+            widget.option.fromIcon,
+            const SizedBox(width: 8),
+            Icon(
+              widget.option.isBidirectional
+                  ? Icons.swap_horiz
+                  : Icons.arrow_forward,
+              color: const Color(0xFF1A6FD4),
+              size: 20,
+            ),
+            const SizedBox(width: 8),
+            widget.option.toIcon,
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                widget.option.label,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF1A1A1A),
+                ),
+              ),
+            ),
+            const Icon(Icons.chevron_right, color: Color(0xFFBBBBBB), size: 22),
+          ],
         ),
       ),
     );
