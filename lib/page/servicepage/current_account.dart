@@ -9,9 +9,10 @@ class CurrentAccount extends StatefulWidget {
   State<CurrentAccount> createState() => _CurrentAccountState();
 }
 
-class _CurrentAccountState extends State<CurrentAccount> {
-  @override
+class _CurrentAccountState extends State<CurrentAccount>
+    with SingleTickerProviderStateMixin {
   int selectedIndex = 0;
+
   final List<String> _filters = [
     'All',
     'Goal',
@@ -19,6 +20,35 @@ class _CurrentAccountState extends State<CurrentAccount> {
     'Current',
     'Saving',
   ];
+
+  //Animation
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+
+    _animation = Tween<double>(
+      begin: 0,
+      end: 0.9,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFa9cb39),
@@ -39,110 +69,103 @@ class _CurrentAccountState extends State<CurrentAccount> {
     return Container(
       color: Color(0xFFa9cb39),
       height: 250,
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(12),
       child: Row(
         children: [
-          // chart
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  width: 170,
-                  height: 170,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      CustomPaint(
-                        size: Size(170, 170),
-                        painter: RealHalfCirclePainter(0.9),
-                      ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 15),
+                  child: SizedBox(
+                    width: 170,
+                    height: 170,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        // Animated Circle
+                        AnimatedBuilder(
+                          animation: _animation,
+                          builder: (context, child) {
+                            return CustomPaint(
+                              size: Size(170, 170),
+                              painter: RealHalfCirclePainter(_animation.value),
+                            );
+                          },
+                        ),
 
-                      // inner circle
-                      Container(
-                        width: 110,
-                        height: 110,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          shape: BoxShape.circle,
+                        Container(
+                          width: 110,
+                          height: 110,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            shape: BoxShape.circle,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("1", style: TextStyle(fontSize: 20)),
+                              Text(
+                                "Account",
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("1", style: TextStyle(fontSize: 20)),
-                            Text(
-                              "Account",
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
+
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(0),
-                    child: Container(
-                      width: 160,
-                      height: 70,
-                      decoration: BoxDecoration(
-                        color: Colors.black.withValues(alpha: .05),
-                        // border: BoxBorder.all(),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '\u17DB0',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                          Text(
-                            'Total Balance: \u17DB 0',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ],
-                      ),
+              Container(
+                width: 160,
+                height: 70,
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.05),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '\u17DB0',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
-                  ),
-                ],
+                    Text(
+                      'Total Balance: \u17DB 0',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Container(
-                      width: 160,
-                      height: 70,
-                      decoration: BoxDecoration(
-                        color: Colors.black.withValues(alpha: .05),
-                        // border: BoxBorder.all(),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '\$0.00',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                          Text(
-                            'Total Balance: \$0.00',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ],
-                      ),
+              SizedBox(height: 10),
+              Container(
+                width: 160,
+                height: 70,
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.05),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '\$0.00',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
-                  ),
-                ],
+                    Text(
+                      'Total Balance: \$0.00',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -153,9 +176,8 @@ class _CurrentAccountState extends State<CurrentAccount> {
 
   Widget _buildBody() {
     return Container(
-      // clipBehavior: Clip.antiAliasWithSaveLayer,
       padding: EdgeInsets.all(8),
-      height: 499,
+      height: 563,
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.only(
@@ -163,121 +185,103 @@ class _CurrentAccountState extends State<CurrentAccount> {
           topRight: Radius.circular(30),
         ),
       ),
-      child: SizedBox(
-        height: 70,
-        child: Column(
-          children: [
-            // build wing coin
-            ListTile(
-              leading: Icon(Icons.brightness_1_rounded, color: Colors.amber),
-              title: Text('Wingpoint:'),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: Colors.blueAccent,
-              ),
+      child: Column(
+        children: [
+          ListTile(
+            leading: CircleAvatar(
+              maxRadius: 25,
+              backgroundColor: Colors.grey[200],
+              backgroundImage: AssetImage('lib/images/wingpoint.png'),
             ),
-            SizedBox(height: 5),
-            // fitter and button
-            Container(
-              padding: EdgeInsets.all(8),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(_filters.length, (index) {
-                    return Custombts(
-                      text: _filters[index],
-                      isSelected: selectedIndex == index,
-                      onTap: () {
-                        setState(() {
-                          selectedIndex = index;
-                        });
-                      },
-                    );
-                  }),
-                ),
-              ),
+            title: Text('Wingpoint:'),
+
+            trailing: Icon(Icons.arrow_forward_ios_sharp, color: Colors.blue),
+          ),
+
+          SizedBox(height: 5),
+
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: List.generate(_filters.length, (index) {
+                return Custombts(
+                  text: _filters[index],
+                  isSelected: selectedIndex == index,
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                  },
+                );
+              }),
             ),
-            Card(
-              // decoration: BoxDecoration(
-              //   border: Border.all(
-              //     color: Colors.grey.shade300,
-              //     style: BorderStyle.solid,
-              //   ),
-              //   borderRadius: BorderRadius.circular(10),
-              // ),
-              child: Padding(
-                padding: EdgeInsetsGeometry.symmetric(
-                  vertical: 20,
-                  horizontal: 10,
-                ),
-                child: Column(
-                  children: [
-                    Row(
+          ),
+
+          SizedBox(height: 10),
+
+          Card(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // LEFT SIDE
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Current',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  SizedBox(width: 10),
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 5,
-                                      vertical: 1,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.blue,
-                                      borderRadius: BorderRadius.circular(2),
-                                    ),
-                                    child: Text(
-                                      'Default USD',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 5),
-                              Text('Current | 093587414'),
-                            ],
-                          ),
-                        ),
-
-                        // more menu + balance
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                        Row(
                           children: [
-                            Icon(Icons.more_horiz_outlined, size: 25),
-                            SizedBox(height: 10),
                             Text(
-                              '\$0.00',
+                              'Current',
                               style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 5,
+                                vertical: 1,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(2),
+                              ),
+                              child: Text(
+                                'Default USD',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
                           ],
                         ),
+                        SizedBox(height: 5),
+                        Text('Current | 093587414'),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Icon(Icons.more_horiz_outlined),
+                      SizedBox(height: 10),
+                      Text(
+                        '\$0.00',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -294,15 +298,13 @@ class RealHalfCirclePainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = (size.width / 2) - strokeWidth / 2;
 
-    // How wide the "gap" is at the bottom (in radians).
-    // pi * 0.35 ≈ 63° gap — adjust to taste.
-    const gapHalf = pi * 0.3;
-    const startAngle = pi / 2 + gapHalf; // bottom-left tip
-    const sweepTotal = (2 * pi) - (gapHalf * 2); // full arc minus gap
+    const gapHalf = pi * 0.2;
+    const startAngle = pi / 2 + gapHalf;
+    const sweepTotal = (2 * pi) - (gapHalf * 2);
 
-    // 1. Background track (faint orange)
+    // background (light so animation visible)
     final bgPaint = Paint()
-      ..color = const Color(0xFFFF9800)
+      ..color = const Color(0xFFFF9800).withOpacity(0.1)
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round;
@@ -315,7 +317,7 @@ class RealHalfCirclePainter extends CustomPainter {
       bgPaint,
     );
 
-    // 2. Orange progress arc
+    // progress
     final progressPaint = Paint()
       ..color = const Color(0xFFFF9800)
       ..style = PaintingStyle.stroke
@@ -332,6 +334,7 @@ class RealHalfCirclePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant RealHalfCirclePainter oldDelegate) =>
-      oldDelegate.progress != progress;
+  bool shouldRepaint(covariant RealHalfCirclePainter oldDelegate) {
+    return oldDelegate.progress != progress;
+  }
 }

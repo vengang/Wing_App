@@ -13,6 +13,7 @@ import 'package:wingbank/page/navigationPage/scanbanner.dart';
 import 'package:wingbank/page/navigationPage/wallet.dart';
 import 'package:wingbank/widget/aboutPage.dart';
 import 'package:wingbank/widget/locatorPage.dart';
+import 'package:wingbank/widget/profile_app.dart';
 import 'package:wingbank/widget/promoCard.dart';
 import 'package:wingbank/widget/protiondata.dart';
 import 'package:wingbank/widget/referpage.dart';
@@ -42,6 +43,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       key: _scaffoldKey,
       appBar: _buildAppBarBtsNavigation,
       drawer: _buildDrawer,
@@ -57,7 +59,7 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Container(
         constraints: BoxConstraints(
-          minHeight: MediaQuery.of(context).size.height,
+          maxHeight: MediaQuery.of(context).size.height,
         ),
         color: primaryGreen,
         child: SingleChildScrollView(
@@ -258,9 +260,19 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Row(
                   children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundImage: AssetImage("lib/images/profile.png"),
+                    Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: Image.network(
+                          "https://i.pinimg.com/236x/17/df/a9/17dfa916f8e4ca133dbbf0b4fbf76c3c.jpg",
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 15),
 
@@ -269,7 +281,7 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Text(
-                          "Seang Kimsour",
+                          "WingBank App",
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.white,
@@ -282,7 +294,7 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(color: Colors.white),
                         ),
                         Text(
-                          "#010829656",
+                          "#0965181067",
                           style: TextStyle(color: Colors.white),
                         ),
                       ],
@@ -294,8 +306,19 @@ class _HomePageState extends State<HomePage> {
 
                 /// VIEW PROFILE
                 Row(
-                  children: const [
-                    Text("View Profile", style: TextStyle(color: Colors.white)),
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ProfileApp()),
+                        );
+                      },
+                      child: Text(
+                        "View Profile",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
                     Icon(Icons.arrow_right, color: Colors.white),
                   ],
                 ),
@@ -303,7 +326,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          /// 📋 MENU LIST
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(vertical: 10),
@@ -347,7 +369,7 @@ class _HomePageState extends State<HomePage> {
                   context,
                   icon: AppIcons.settings,
                   title: "Setting",
-                  page: Setting(),
+                  page: SettingsApp(),
                 ),
               ],
             ),

@@ -12,9 +12,9 @@ class _BillPaymentState extends State<BillPayment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 139, 195, 74),
+      backgroundColor: Color(0xFFa9cb39),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 139, 195, 74),
+        backgroundColor: Color(0xFFa9cb39),
         title: const Text("Bill Payment"),
         centerTitle: true,
         leading: IconButton(
@@ -38,10 +38,11 @@ class _BillPaymentState extends State<BillPayment> {
           Column(
             children: [
               Container(
+                padding: EdgeInsets.all(30),
                 width: double.infinity,
                 height: 200,
                 decoration: const BoxDecoration(
-                  color: Color(0xFFC7DEB7),
+                  color: Color(0xFFD1DDAD),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(18),
                     topRight: Radius.circular(18),

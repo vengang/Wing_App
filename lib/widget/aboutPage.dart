@@ -10,7 +10,7 @@ class Aboutpage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 119, 189, 44),
+        backgroundColor: Color(0xFFa9cb39),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
