@@ -70,28 +70,28 @@ class _NewAccountState extends State<NewAccount> {
     return ListView(
       children: [
         customListView(
-          " ",
+          "lib/images/saveforgoal.png",
           "Save for Goal",
           "Save for anything you want and earn interest rate up to 5.00% p.a. plus a special offer for your goal",
           Colors.blue,
         ),
         SizedBox(height: 8),
         customListView(
-          "",
+          "lib/images/termDeposit.png",
           "Term Deposit",
           "Earn a high income up to 5.5% p.a. as interest from your deposit amount",
           Colors.deepPurple,
         ),
         SizedBox(height: 8),
         customListView(
-          "",
+          "lib/images/wallet.png",
           "Savings Account",
           "Earn a high interest rate up to 3.00% p.a. and get paid every month",
           Colors.blue,
         ),
         SizedBox(height: 8),
         customListView(
-          "",
+          "lib/images/wallet.png",
           "Current Account",
           "Move your fund freely up to \$150,000 per day for your daily needs",
           Colors.orange,

@@ -24,6 +24,8 @@ class Favorite extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset('lib/images/favorate.png'),
+            SizedBox(height: 20),
             Text('No Favorite'),
             Text('Once you have favorites, they will be displayed here.'),
           ],
