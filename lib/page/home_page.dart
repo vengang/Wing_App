@@ -11,6 +11,7 @@ import 'package:wingbank/page/navigationPage/favorite.dart';
 import 'package:wingbank/page/navigationPage/help.dart';
 import 'package:wingbank/page/navigationPage/scanbanner.dart';
 import 'package:wingbank/page/navigationPage/wallet.dart';
+import 'package:wingbank/page/qrscan.dart';
 import 'package:wingbank/widget/aboutPage.dart';
 import 'package:wingbank/widget/locatorPage.dart';
 import 'package:wingbank/widget/promoCard.dart';
@@ -118,19 +119,14 @@ class _HomePageState extends State<HomePage> {
             onTap: () {
               showDialog(
                 context: context,
+                // barrierColor: Colors.amber,
+                fullscreenDialog: false,
+                requestFocus: true,
+                useSafeArea: true,
+                barrierDismissible: true,
+
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('khmerQr Clicked'),
-                    content: const Text('khmerQr was clicked'),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text('OK'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  );
+                  return Qrscan();
                 },
               );
             },
