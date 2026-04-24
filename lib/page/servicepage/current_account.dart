@@ -177,7 +177,7 @@ class _CurrentAccountState extends State<CurrentAccount>
   Widget _buildBody() {
     return Container(
       padding: EdgeInsets.all(8),
-      height: 499,
+      height: 563,
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.only(
