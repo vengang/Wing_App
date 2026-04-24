@@ -117,7 +117,6 @@ class _HomePageState extends State<HomePage> {
           GestureDetector(
             onTap: () {
               showDialog(
-                fullscreenDialog: true,
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
