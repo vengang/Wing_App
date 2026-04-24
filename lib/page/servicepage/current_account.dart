@@ -188,8 +188,13 @@ class _CurrentAccountState extends State<CurrentAccount>
       child: Column(
         children: [
           ListTile(
-            leading: Icon(Icons.brightness_1_rounded, color: Colors.amber),
+            leading: CircleAvatar(
+              maxRadius: 25,
+              backgroundColor: Colors.grey[200],
+              backgroundImage: AssetImage('lib/images/wingpoint.png'),
+            ),
             title: Text('Wingpoint:'),
+
             trailing: Icon(Icons.arrow_forward_ios_sharp, color: Colors.blue),
           ),
 
@@ -312,7 +317,7 @@ class RealHalfCirclePainter extends CustomPainter {
       bgPaint,
     );
 
-    // ✅ progress
+    // progress
     final progressPaint = Paint()
       ..color = const Color(0xFFFF9800)
       ..style = PaintingStyle.stroke

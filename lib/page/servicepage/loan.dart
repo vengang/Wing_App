@@ -8,6 +8,7 @@ class Loan extends StatefulWidget {
 }
 
 class _LoanState extends State<Loan> {
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(

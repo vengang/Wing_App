@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 Widget wingIcon() => SizedBox(
   width: 28,
   height: 28,
-  child: Image.asset('lib/images/wing_icon.png', fit: BoxFit.contain),
+  child: Image.asset('lib/images/bird2.png', fit: BoxFit.contain),
 );
 
 class TransferOption {
@@ -23,8 +23,8 @@ class TransferOption {
 List<TransferOption> transferOptions = [
   TransferOption(
     label: 'Transfer to Own Account',
-    fromIcon: const Icon(Icons.person, color: Color(0xFF1A6FD4), size: 28),
-    toIcon: const Icon(Icons.person, color: Color(0xFF1A6FD4), size: 28),
+    fromIcon: const Icon(Icons.person, color: Color(0xFF0077FF), size: 28),
+    toIcon: const Icon(Icons.person, color: Color(0xFF0077FF), size: 28),
   ),
   TransferOption(
     label: 'Wing Bank to Wing Bank',
@@ -36,21 +36,21 @@ List<TransferOption> transferOptions = [
     fromIcon: wingIcon(),
     toIcon: const Icon(
       Icons.account_balance,
-      color: Color(0xFF1A6FD4),
+      color: Color(0xFF0077FF),
       size: 28,
     ),
   ),
   TransferOption(
     label: 'Wing Wei Luy',
     fromIcon: wingIcon(),
-    toIcon: const Icon(Icons.smartphone, color: Color(0xFF1A6FD4), size: 28),
+    toIcon: const Icon(Icons.smartphone, color: Color(0xFF0077FF), size: 28),
   ),
   TransferOption(
     label: 'Trading Account',
     fromIcon: wingIcon(),
     toIcon: const Icon(
       Icons.candlestick_chart,
-      color: Color(0xFF1A6FD4),
+      color: Color(0xFF0077FF),
       size: 28,
     ),
     isBidirectional: true,
