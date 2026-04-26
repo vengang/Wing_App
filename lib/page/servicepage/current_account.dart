@@ -62,6 +62,12 @@ class _CurrentAccountState extends State<CurrentAccount>
         backgroundColor: Color(0xFFa9cb39),
       ),
       body: Column(children: [_buildHeader(), _buildBody()]),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromARGB(255, 42, 118, 216),
+        shape: CircleBorder(),
+        onPressed: () {},
+        child: Icon(Icons.add_link_outlined, color: Colors.white),
+      ),
     );
   }
 
@@ -177,7 +183,7 @@ class _CurrentAccountState extends State<CurrentAccount>
   Widget _buildBody() {
     return Container(
       padding: EdgeInsets.all(8),
-      height: 563,
+      height: 499,
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.only(

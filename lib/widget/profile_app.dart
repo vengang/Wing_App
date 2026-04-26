@@ -6,9 +6,9 @@ class ProfileApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF8DC63F),
+      backgroundColor: const Color(0xFFa9cb39),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF8DC63F),
+        backgroundColor: const Color(0xFFa9cb39),
         elevation: 0,
         centerTitle: true,
         leading: IconButton(

@@ -11,6 +11,7 @@ import 'package:wingbank/page/navigationPage/favorite.dart';
 import 'package:wingbank/page/navigationPage/help.dart';
 import 'package:wingbank/page/navigationPage/scanbanner.dart';
 import 'package:wingbank/page/navigationPage/wallet.dart';
+import 'package:wingbank/page/qrscan.dart';
 import 'package:wingbank/widget/aboutPage.dart';
 import 'package:wingbank/widget/locatorPage.dart';
 import 'package:wingbank/widget/profile_app.dart';
@@ -120,19 +121,13 @@ class _HomePageState extends State<HomePage> {
             onTap: () {
               showDialog(
                 context: context,
+
+                // barrierColor: Colors.amber,
+                fullscreenDialog: false,
+                requestFocus: true,
+                barrierDismissible: true,
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('khmerQr Clicked'),
-                    content: const Text('khmerQr was clicked'),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text('OK'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  );
+                  return Qrscan();
                 },
               );
             },
@@ -237,11 +232,11 @@ class _HomePageState extends State<HomePage> {
     return Drawer(
       child: Column(
         children: [
-          /// 🔰 TOP LOGO
+          //TOP LOGO
           Container(
             width: double.infinity,
             height: 140,
-            color: darkGreen,
+            color: Color(0xFFa9cb39),
             alignment: Alignment.center,
             child: Image.asset(
               "lib/images/wing.png",
@@ -250,7 +245,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          /// 👤 USER INFO
+          //USER INFO
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),
@@ -341,14 +336,14 @@ class _HomePageState extends State<HomePage> {
                   context,
                   icon: AppIcons.referFriends,
                   title: "Refer Friends",
-                  page: Referpage(),
+                  page: HomePage(),
                 ),
 
                 buildMenuItem(
                   context,
                   icon: AppIcons.locator,
                   title: "Locator",
-                  page: LocatorPage(),
+                  page: HomePage(),
                 ),
 
                 buildMenuItem(
@@ -362,7 +357,7 @@ class _HomePageState extends State<HomePage> {
                   context,
                   icon: AppIcons.terms,
                   title: "Terms & Conditions",
-                  page: Termpage(),
+                  page: HomePage(),
                 ),
 
                 buildMenuItem(
