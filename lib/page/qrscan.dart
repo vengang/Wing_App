@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Qrscan extends StatelessWidget {
@@ -7,23 +6,20 @@ class Qrscan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            //logo
-            _buildLogo(),
-            SizedBox(height: 5),
-            _title(),
-            _buildQrimg(),
-            _buildReciveAccount(),
-            _buildEnterAmout(),
-            SizedBox(height: 10),
-            _buildQrOption(),
-          ],
-        ),
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          //logo
+          _buildLogo(),
+          SizedBox(height: 5),
+          _title(),
+          _buildQrimg(),
+          _buildReciveAccount(),
+          _buildEnterAmout(),
+          SizedBox(height: 10),
+          _buildQrOption(),
+        ],
       ),
     );
   }
@@ -32,9 +28,9 @@ class Qrscan extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        padding: EdgeInsets.all(8),
+        // padding: EdgeInsets.all(12),
         width: 190,
-        height: 50,
+        height: 40,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(100),
@@ -42,7 +38,7 @@ class Qrscan extends StatelessWidget {
         child: Image.asset(
           'lib/images/winglogo3.png',
           fit: BoxFit.cover,
-          scale: double.maxFinite,
+          // scale: double.maxFinite,
         ),
       ),
     );
@@ -52,7 +48,6 @@ class Qrscan extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 32.0, right: 32.0),
       child: Text(
-        maxLines: 2,
         'Show QR code to make a secure and fast payment',
         textAlign: TextAlign.center,
         style: TextStyle(

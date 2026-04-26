@@ -232,11 +232,11 @@ class _HomePageState extends State<HomePage> {
     return Drawer(
       child: Column(
         children: [
-          /// 🔰 TOP LOGO
+          //TOP LOGO
           Container(
             width: double.infinity,
             height: 140,
-            color: darkGreen,
+            color: Color(0xFFa9cb39),
             alignment: Alignment.center,
             child: Image.asset(
               "lib/images/wing.png",
@@ -245,7 +245,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          /// 👤 USER INFO
+          //USER INFO
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),

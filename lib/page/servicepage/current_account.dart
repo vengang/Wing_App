@@ -62,6 +62,12 @@ class _CurrentAccountState extends State<CurrentAccount>
         backgroundColor: Color(0xFFa9cb39),
       ),
       body: Column(children: [_buildHeader(), _buildBody()]),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromARGB(255, 42, 118, 216),
+        shape: CircleBorder(),
+        onPressed: () {},
+        child: Icon(Icons.add_link_outlined, color: Colors.white),
+      ),
     );
   }
 
