@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
@@ -10,15 +11,14 @@ class AuthController extends GetxController {
         "Error",
         "Please enter email and password",
         snackPosition: SnackPosition.BOTTOM,
+
+        colorText: Colors.white,
       );
       return false;
     }
 
     try {
-      await auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      await auth.signInWithEmailAndPassword(email: email, password: password);
 
       Get.snackbar(
         "Success",
@@ -31,6 +31,8 @@ class AuthController extends GetxController {
         "Error",
         e.toString(),
         snackPosition: SnackPosition.BOTTOM,
+
+        colorText: Colors.white,
       );
       return false;
     }

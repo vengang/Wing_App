@@ -8,8 +8,8 @@ class Myapp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //  return GetMaterialApp(   debugShowCheckedModeBanner: false, home: SplashScreen());
-    return MaterialApp(
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         pageTransitionsTheme: PageTransitionsTheme(
           builders: {
@@ -26,7 +26,7 @@ class Myapp extends StatelessWidget {
           ),
         ),
       ),
-      debugShowCheckedModeBanner: false,
+
       home: SplashScreen(),
     );
   }

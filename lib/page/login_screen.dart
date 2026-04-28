@@ -27,10 +27,7 @@ class _LoginState extends State<Login> {
         children: [
           // Background image
           Positioned.fill(
-            child: Image.network(
-              "https://cambodiainvestmentreview.com/wp-content/uploads/2024/07/Capture-8-1024x580.jpg",
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset("lib/images/wingtower.png", fit: BoxFit.cover),
           ),
 
           // Dark overlay
